@@ -24,80 +24,94 @@ class _LoginScreenState extends State<LoginScreen> {
           body: Stack(
         children: [
           Container(
-            color: AppColors.theme['primaryColor'],
+            color :AppColors.theme['primaryColor'],
             child: Center(
-              child: Padding(
-                padding: EdgeInsets.only(bottom: mq.height * 0.35),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Z",
-                      style: TextStyle(
-                          fontFamily: "LatoBold",
-                          color: AppColors.theme['primaryTextColor'],
-                          fontSize: 57),
-                    ),
-                    customCircularAvatar(
-                      radius: 18,
-                      icon: Icon(
-                        Icons.chat_bubble,
-                        size: 18,
-                      ),
-                      text: 'Team Chat',
-                    ),
-                    customCircularAvatar(
-                      radius: 18,
-                      icon: Icon(
-                        Icons.call,
-                        size: 18,
-                      ),
-                      text: 'Call',
-                    ),
-                    customCircularAvatar(
-                      radius: 14,
-                      icon: Icon(
-                        Icons.video_call,
-                        size: 20,
-                      ),
-                      text: 'Video',
-                    ),
-                    customCircularAvatar(
-                      radius: 14,
-                      icon: Icon(
-                        Icons.meeting_room,
-                        size: 18,
-                      ),
-                      text: 'Meetroom',
-                    ),
-                    customCircularAvatar(
-                      radius: 18,
-                      icon: Icon(
-                        Icons.mail,
-                        size: 18,
-                      ),
-                      text: 'Mail',
-                    ),
-                    customCircularAvatar(
-                      radius: 18,
-                      icon: Icon(
-                        Icons.calendar_today_rounded,
-                        size: 18,
-                      ),
-                      text: 'Calendar',
-                    ),
-                    Text(
-                      "m",
-                      style: TextStyle(
-                          fontFamily: "LatoBold",
-                          color: AppColors.theme['primaryTextColor'],
-                          fontSize: 57),
-                    )
-                  ],
-                ),
+              child: Column(
+                children: [
+                  SizedBox(height: mq.height*0.2,),
+                  Image.asset("assets/images/img.png",height: 300,width: 300,),
+                  SizedBox(height: mq.height*0.003,),
+                  Text("MeetWith",style: TextStyle(color: AppColors.theme['primaryTextColor']),) ,
+                ],
               ),
             ),
+
           ),
+          // Container(
+          //   color: AppColors.theme['primaryColor'],
+          //   child: Center(
+          //     child: Padding(
+          //       padding: EdgeInsets.only(bottom: mq.height * 0.35),
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.center,
+          //         children: [
+          //           Text(
+          //             "Z",
+          //             style: TextStyle(
+          //                 fontFamily: "LatoBold",
+          //                 color: AppColors.theme['primaryTextColor'],
+          //                 fontSize: 57),
+          //           ),
+          //           customCircularAvatar(
+          //             radius: 18,
+          //             icon: Icon(
+          //               Icons.chat_bubble,
+          //               size: 18,
+          //             ),
+          //             text: 'Team Chat',
+          //           ),
+          //           customCircularAvatar(
+          //             radius: 18,
+          //             icon: Icon(
+          //               Icons.call,
+          //               size: 18,
+          //             ),
+          //             text: 'Call',
+          //           ),
+          //           customCircularAvatar(
+          //             radius: 14,
+          //             icon: Icon(
+          //               Icons.video_call,
+          //               size: 20,
+          //             ),
+          //             text: 'Video',
+          //           ),
+          //           customCircularAvatar(
+          //             radius: 14,
+          //             icon: Icon(
+          //               Icons.meeting_room,
+          //               size: 18,
+          //             ),
+          //             text: 'Meetroom',
+          //           ),
+          //           customCircularAvatar(
+          //             radius: 18,
+          //             icon: Icon(
+          //               Icons.mail,
+          //               size: 18,
+          //             ),
+          //             text: 'Mail',
+          //           ),
+          //           customCircularAvatar(
+          //             radius: 18,
+          //             icon: Icon(
+          //               Icons.calendar_today_rounded,
+          //               size: 18,
+          //             ),
+          //             text: 'Calendar',
+          //           ),
+          //           Text(
+          //             "m",
+          //             style: TextStyle(
+          //                 fontFamily: "LatoBold",
+          //                 color: AppColors.theme['primaryTextColor'],
+          //                 fontSize: 57),
+          //           )
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Positioned(
               bottom: 0,
               child: Container(
