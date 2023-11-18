@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zoom_clone/custom_widgets/button.dart';
 import 'package:zoom_clone/screens/greet_screen.dart';
+import 'package:zoom_clone/screens/login_screen.dart';
 import '../../Pallate.dart';
 import '../../custom_widgets/auth_options_containers.dart';
 import '../../custom_widgets/cutsom_helpers.dart';
@@ -8,7 +9,6 @@ import '../../custom_widgets/text_field.dart';
 import '../../effects/transition4.dart';
 import '../../resources/Api.dart';
 import '../splash_screen.dart';
-import 'confirmation_signup.dart';
 
 class SignUpOption extends StatefulWidget {
   const SignUpOption({super.key});
@@ -85,7 +85,7 @@ class _SignUpOptionState extends State<SignUpOption> {
                   color: AppColors.theme['secondaryTextColor'],
                 ),
                 onPressed: () {
-                  Navigator.push(context, SizeTransition4(signUp()));
+                  Navigator.push(context, SizeTransition4(LoginScreen()));
                 },
               ),
               title: Text(

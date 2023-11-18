@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zoom_clone/pallate.dart';
 import 'package:zoom_clone/screens/signin/sign_in.dart';
 import 'package:zoom_clone/screens/signup/confirmation_signup.dart';
+import 'package:zoom_clone/screens/signup/sign_up_options.dart';
 import 'package:zoom_clone/screens/splash_screen.dart';
 import '../custom_widgets/button.dart';
 import '../custom_widgets/circular_avatar.dart';
@@ -28,94 +29,79 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Center(
               child: Column(
                 children: [
-                  SizedBox(height: mq.height*0.2,),
-                  Image.asset("assets/images/img.png",height: 300,width: 300,),
+                  SizedBox(height: mq.height*0.1,),
+                  Image.asset("assets/images/img.png",height: 250,width: 250,),
                   SizedBox(height: mq.height*0.003,),
-                  Text("MeetWith",style: TextStyle(color: AppColors.theme['primaryTextColor']),) ,
+                  Text("MeetWith",style: TextStyle(color: AppColors.theme['primaryTextColor'],fontSize: 32),) ,
+                  SizedBox(height: mq.height*0.003,),
+                   Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          customCircularAvatar(
+                            radius: 20,
+                            icon: Icon(
+                              Icons.chat_bubble,
+                              size: 20,
+                            ),
+                            text: 'Team Chat',
+                          ),
+                          SizedBox(width: 10,),
+                          customCircularAvatar(
+                            radius: 20,
+                            icon: Icon(
+                              Icons.call,
+                              size: 20,
+                            ),
+                            text: 'Call',
+                          ),
+                          SizedBox(width: 10,),
+                          customCircularAvatar(
+                            radius: 20,
+                            icon: Icon(
+                              Icons.video_call,
+                              size: 20,
+                            ),
+                            text: 'Video',
+                          ),
+                          SizedBox(width: 10,),
+                          customCircularAvatar(
+                            radius: 20,
+                            icon: Icon(
+                              Icons.meeting_room,
+                              size: 20,
+                            ),
+                            text: 'Meetroom',
+                          ),
+                          SizedBox(width: 10,),
+                          customCircularAvatar(
+                            radius: 20,
+                            icon: Icon(
+                              Icons.mail,
+                              size: 20,
+                            ),
+                            text: 'Mail',
+                          ),
+                          SizedBox(width: 10,),
+                          customCircularAvatar(
+                            radius: 20,
+                            icon: Icon(
+                              Icons.calendar_today_rounded,
+                              size: 20,
+                            ),
+                            text: 'Calendar',
+                          ),
+
+                        ],
+                      ),
                 ],
               ),
             ),
 
           ),
-          // Container(
-          //   color: AppColors.theme['primaryColor'],
-          //   child: Center(
-          //     child: Padding(
-          //       padding: EdgeInsets.only(bottom: mq.height * 0.35),
-          //       child: Row(
-          //         mainAxisAlignment: MainAxisAlignment.center,
-          //         children: [
-          //           Text(
-          //             "Z",
-          //             style: TextStyle(
-          //                 fontFamily: "LatoBold",
-          //                 color: AppColors.theme['primaryTextColor'],
-          //                 fontSize: 57),
-          //           ),
-          //           customCircularAvatar(
-          //             radius: 18,
-          //             icon: Icon(
-          //               Icons.chat_bubble,
-          //               size: 18,
-          //             ),
-          //             text: 'Team Chat',
-          //           ),
-          //           customCircularAvatar(
-          //             radius: 18,
-          //             icon: Icon(
-          //               Icons.call,
-          //               size: 18,
-          //             ),
-          //             text: 'Call',
-          //           ),
-          //           customCircularAvatar(
-          //             radius: 14,
-          //             icon: Icon(
-          //               Icons.video_call,
-          //               size: 20,
-          //             ),
-          //             text: 'Video',
-          //           ),
-          //           customCircularAvatar(
-          //             radius: 14,
-          //             icon: Icon(
-          //               Icons.meeting_room,
-          //               size: 18,
-          //             ),
-          //             text: 'Meetroom',
-          //           ),
-          //           customCircularAvatar(
-          //             radius: 18,
-          //             icon: Icon(
-          //               Icons.mail,
-          //               size: 18,
-          //             ),
-          //             text: 'Mail',
-          //           ),
-          //           customCircularAvatar(
-          //             radius: 18,
-          //             icon: Icon(
-          //               Icons.calendar_today_rounded,
-          //               size: 18,
-          //             ),
-          //             text: 'Calendar',
-          //           ),
-          //           Text(
-          //             "m",
-          //             style: TextStyle(
-          //                 fontFamily: "LatoBold",
-          //                 color: AppColors.theme['primaryTextColor'],
-          //                 fontSize: 57),
-          //           )
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          // ),
           Positioned(
               bottom: 0,
               child: Container(
-                height: mq.height * 0.37,
+                height: mq.height * 0.4,
                 width: mq.width * 1,
                 decoration: BoxDecoration(
                     color: AppColors.theme['secondaryColor'],
@@ -138,12 +124,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: mq.height * 0.02,
                       ),
                       Text(
-                        "Get started with your account",
+                        "Get started with your account to",
                         style: TextStyle(
                             fontSize: 17,
                             fontFamily: 'LatoBold',
                             color: Colors.black38),
                       ),
+                      Text("continue with MeetWith",style: TextStyle(
+                          fontSize: 17,
+                          fontFamily: 'LatoBold',
+                          color: AppColors.theme['primaryColor']),),
                       SizedBox(
                         height: mq.height * 0.02,
                       ),
@@ -155,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       customButton(
                         onPressed: () {
-                          Navigator.push(context, SizeTransition4(signUp()));
+                          Navigator.push(context, SizeTransition4(SignUpOption()));
                         },
                         text: 'Sign Up',
                         textColor: AppColors.theme['secondaryTextColor'],
@@ -164,7 +154,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       customButton(
                         onPressed: () {
                           Navigator.push(context, SizeTransition4(SignInOption()));
-
                         },
                         text: 'Sign In',
                         textColor: AppColors.theme['secondaryTextColor'],
