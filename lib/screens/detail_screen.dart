@@ -2,9 +2,12 @@ import 'dart:io';
 import 'package:flutter/material.dart' ;
 import 'package:image_picker/image_picker.dart';
 import 'package:zoom_clone/custom_widgets/button.dart';
+import 'package:zoom_clone/effects/transition4.dart';
+import 'package:zoom_clone/screens/greet_screen.dart';
 import 'package:zoom_clone/screens/splash_screen.dart';
 
 import '../Pallate.dart';
+import '../custom_widgets/cutsom_helpers.dart';
 import '../resources/Api.dart';
 
 
@@ -17,7 +20,7 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
 
-   String ? _image ;
+   String?  _image   ;
 
    TextEditingController _textEditingController = TextEditingController() ;
 
@@ -39,11 +42,11 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
           ),
           body: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Column(
               children: [
                 SizedBox(height: mq.height*.05,width: mq.width*1,),
                 Stack(
-
                     children: [
                       _image!=null ?
                       ClipRRect(
@@ -57,12 +60,12 @@ class _DetailScreenState extends State<DetailScreen> {
                       ):
                       CircleAvatar(
                         radius: 75,
-                        backgroundColor: Colors.white30,
-                      child: Icon(Icons.person),
+                        backgroundColor: Colors.black12,
+                      child: Icon(Icons.person,size: 50,color: Colors.white,),
                       ),
                       Positioned(
-                        top: mq.height*0.13,
-                        left: mq.width*0.28,
+                        top: mq.height*0.12,
+                        left: mq.width*0.25,
                         child: InkWell(
                           onTap: (){
                             showBottomSheet() ;
@@ -75,7 +78,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       )
                     ]
                 ),
-                SizedBox(height: mq.height*.05,width: mq.width*1,),
+                SizedBox(height: mq.height*.07,width: mq.width*1,),
                 Padding(
                   padding:  EdgeInsets.symmetric(horizontal: mq.width*0.1),
                   child: TextFormField(
@@ -121,11 +124,12 @@ class _DetailScreenState extends State<DetailScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 18.0),
                   child: customButton(onPressed: ()async{
                if (_formKey.currentState!.validate()) {
-
-                   await Api.fillDetailsEmailUser(File(_image!),_textEditingController.text) ;
-
-
-
+                 
+                 
+                 Dialogs.showProgressBar(context) ;
+                   await Api.fillDetailsEmailUser(File(_image!),_textEditingController.text).then((value) {
+                     Navigator.pushReplacement(context, SizeTransition4(GreetScreen()));
+                   }) ;
                }
                   }, text: "Next", textColor: AppColors.theme['primaryTextColor'], buttonColor:AppColors.theme['primaryColor']),
                 )

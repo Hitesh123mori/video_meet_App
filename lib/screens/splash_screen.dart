@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:zoom_clone/effects/transition4.dart';
 
 import '../pallate.dart';
+import '../resources/Api.dart';
+import 'home_screen.dart';
 import 'login_screen.dart';
 
 late Size mq ;
@@ -20,12 +22,13 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState(){
     super.initState() ;
     Future.delayed(Duration(milliseconds: 2500),(){
-
-       Navigator.pushReplacement(context, SizeTransition4(LoginScreen()));
-
-      // SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge) ;
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge) ;
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent,systemNavigationBarColor: Colors.transparent));
-
+      if(Api.auth != null){
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomeScreen())) ;
+      }else{
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginScreen())) ;
+      }
     }) ;
   }
 

@@ -193,9 +193,9 @@ class Api {
   // for storing self information
   static MeetUser me = MeetUser(
     id: user.uid,
-    name: "",
+    name: user.displayName.toString(),
     email: user.email.toString(),
-    image: "",
+    image: user.photoURL.toString(),
     createdAt: '',
     method: '',
   );

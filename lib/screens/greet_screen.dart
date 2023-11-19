@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:zoom_clone/Pallate.dart';
+import 'package:zoom_clone/screens/home_screen.dart';
 import 'package:zoom_clone/screens/splash_screen.dart';
 
 import '../custom_widgets/button.dart';
@@ -42,11 +43,9 @@ class _GreetScreenState extends State<GreetScreen> {
                 SizedBox(height: mq.height*0.1,),
                 Image.asset("assets/images/greet_card.jpg",width: 350,height: 350,),
                 SizedBox(height: mq.height*0.15,),
-                customButton(onPressed: () async{
+                customButton(onPressed: () {
 
-
-                 await Api.signOut(context) ;
-
+                  Navigator.pushReplacement(context, SizeTransition4(HomeScreen()));
 
                 }, text: 'Get Started', textColor:AppColors.theme['primaryTextColor'], buttonColor: AppColors.theme['primaryColor'],)
               ]

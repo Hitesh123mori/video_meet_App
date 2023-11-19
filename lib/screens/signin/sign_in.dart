@@ -68,7 +68,7 @@ class _SignInOptionState extends State<SignInOption> {
           bool userExists = await Api.userExistsEmail(user.uid);
 
           if (userExists) {
-            Navigator.pushReplacement(context, SizeTransition4(DetailScreen()));
+            Navigator.pushReplacement(context, SizeTransition4(GreetScreen()));
           }
         }
       } catch (error) {
