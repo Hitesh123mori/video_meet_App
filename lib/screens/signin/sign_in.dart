@@ -1,21 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:zoom_clone/custom_widgets/button.dart';
-import 'package:zoom_clone/resources/models/user.dart';
-import 'package:zoom_clone/screens/bottom_navigation_screens/home_page.dart';
 import 'package:zoom_clone/screens/home_screen.dart';
-
 import '../../Pallate.dart';
 import '../../custom_widgets/auth_options_containers.dart';
-import '../../custom_widgets/cutsom_helpers.dart';
 import '../../custom_widgets/text_field.dart';
 import '../../effects/transition4.dart';
 import '../../effects/transition5.dart';
 import '../../resources/Api.dart';
-import '../detail_screen.dart';
 import '../greet_screen.dart';
 import '../login_screen.dart';
-import '../signup/confirmation_signup.dart';
 import '../splash_screen.dart';
 
 

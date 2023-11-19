@@ -6,17 +6,15 @@ class OptionContainer extends StatelessWidget {
   final Icon icon ;
   final String text ;
   final Color color ;
-
-  const OptionContainer({super.key, required this.icon, required this.text, required this.color});
+ final  VoidCallback onTap ;
+  const OptionContainer({super.key, required this.icon, required this.text, required this.color, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         InkWell(
-          onTap: (){
-
-          },
+          onTap: onTap,
           child: Container(
             child: icon,
             height: 60,

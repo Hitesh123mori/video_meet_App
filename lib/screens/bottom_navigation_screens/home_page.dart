@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart' ;
+import 'package:zoom_clone/effects/transition5.dart';
 
 import '../../Pallate.dart';
 import '../../custom_widgets/home_page_container.dart';
+import '../home_page_screens/join_meeting_screen.dart';
 import '../splash_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,13 +28,15 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   children: [
                     SizedBox(width: 13,),
-                    OptionContainer(icon: Icon(Icons.video_call,size: 28,color: Colors.white), text: 'New Meeting', color: Colors.orange.shade800,),
+                    OptionContainer(icon: Icon(Icons.video_call,size: 28,color: Colors.white), text: 'New Meeting', color: Colors.orange.shade800, onTap: () {  },),
                     SizedBox(width: 30,),
-                    OptionContainer(icon: Icon(Icons.add,color: Colors.white,size: 28,), text: 'Join Meeting', color: AppColors.theme['primaryColor'],),
+                    OptionContainer(icon: Icon(Icons.add,color: Colors.white,size: 28,), text: 'Join Meeting', color: AppColors.theme['primaryColor'], onTap: () {
+                      Navigator.push(context, SizeTransition5(JoinMeeting())) ;
+                    },),
                     SizedBox(width: 30,),
-                    OptionContainer(icon: Icon(Icons.schedule,color: Colors.white,size: 28,), text: 'Schedule', color:AppColors.theme['primaryColor'],),
+                    OptionContainer(icon: Icon(Icons.schedule,color: Colors.white,size: 28,), text: 'Schedule', color:AppColors.theme['primaryColor'], onTap: () {  },),
                     SizedBox(width: 30,),
-                    OptionContainer(icon: Icon(Icons.ios_share_sharp,color: Colors.white,size: 28), text: 'Share Screen', color: AppColors.theme['primaryColor'],),
+                    OptionContainer(icon: Icon(Icons.ios_share_sharp,color: Colors.white,size: 28), text: 'Share Screen', color: AppColors.theme['primaryColor'], onTap: () {  },),
                     SizedBox(width: 13,),
                   ],
                 ),
