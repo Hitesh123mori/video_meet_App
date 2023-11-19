@@ -6,6 +6,7 @@ import 'package:zoom_clone/screens/splash_screen.dart';
 import '../custom_widgets/button.dart';
 import '../custom_widgets/cutsom_helpers.dart';
 import '../effects/transition4.dart';
+import '../effects/transition5.dart';
 import '../resources/Api.dart';
 import 'login_screen.dart';
 
@@ -32,16 +33,29 @@ class _GreetScreenState extends State<GreetScreen> {
                 SizedBox(height: mq.height*0.017,),
                 Padding(
                   padding:  EdgeInsets.symmetric(horizontal: mq.width*0.04),
-                  child: Text("Welcome to Zoom-one app for team chat phone,",style: TextStyle(fontSize: 14),),
+                  child: Text("Welcome to MeetWith for video meeting,",style: TextStyle(fontSize: 14),),
                 ),
                 Padding(
                   padding:  EdgeInsets.symmetric(horizontal: mq.width*0.2),
-                  child: Text("meetings,and more."),
+                  child: Text("chat,and more."),
                 ),
-                SizedBox(height: mq.height*0.06,),
-                Image.asset("assets/images/greet_card.jpg"),
-                SizedBox(height: mq.height*0.11,),
-                customButton(onPressed: () {
+                SizedBox(height: mq.height*0.1,),
+                Image.asset("assets/images/greet_card.jpg",width: 350,height: 350,),
+                SizedBox(height: mq.height*0.15,),
+                customButton(onPressed: () async{
+
+
+                  await Api.auth.signOut().then((value) async {
+                    await GoogleSignIn().signOut().then((value){
+                      Future.delayed(Duration.zero, () {
+                        Navigator.pushReplacement(
+                          context,
+                          SizeTransition5(LoginScreen()),
+                        );
+                      });
+                    });
+                  }) ;
+
 
                 }, text: 'Get Started', textColor:AppColors.theme['primaryTextColor'], buttonColor: AppColors.theme['primaryColor'],)
               ]

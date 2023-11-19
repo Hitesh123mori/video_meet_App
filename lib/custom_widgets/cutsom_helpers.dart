@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 
 class Dialogs{
 
-
-  static showSnackBar(BuildContext context, String text) {
-    return ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(text)));
-  }
+  //
+  // static void showSnackBar(BuildContext context,String msg){
+  //
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text(msg),
+  //       )
+  //   ) ;
+  //
+  // }
 
 
   static void showProgressBar(BuildContext context) {

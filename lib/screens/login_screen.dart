@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Positioned(
               bottom: 0,
               child: Container(
-                height: mq.height * 0.4,
+                height: mq.height * 0.37,
                 width: mq.width * 1,
                 decoration: BoxDecoration(
                     color: AppColors.theme['secondaryColor'],
@@ -130,10 +130,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             fontFamily: 'LatoBold',
                             color: Colors.black38),
                       ),
-                      Text("continue with MeetWith",style: TextStyle(
-                          fontSize: 17,
-                          fontFamily: 'LatoBold',
-                          color: AppColors.theme['primaryColor']),),
                       SizedBox(
                         height: mq.height * 0.02,
                       ),

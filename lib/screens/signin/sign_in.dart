@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:zoom_clone/custom_widgets/button.dart';
+import 'package:zoom_clone/resources/models/user.dart';
 
 import '../../Pallate.dart';
 import '../../custom_widgets/auth_options_containers.dart';
@@ -29,22 +31,50 @@ class _SignInOptionState extends State<SignInOption> {
 
   bool isButtonEnabled2 = false;
 
+  // sign in with google
   void  handlegooglebutton() {
     Dialogs.showProgressBar(context);
     Api.signInWithGoogle(context).then((user) async {
       Navigator.pop(context);
 
       if (user != null) {
-        bool userExists = await Api.userExists();
+        bool userExists = await Api.userExistsGoogle();
         if (userExists) {
           Navigator.pushReplacement(context, SizeTransition4(GreetScreen()));
         } else {
-          await Api.createUser().then((value) => Navigator.pushReplacement(context, SizeTransition4(GreetScreen()))) ;
+          await Api.createUserGoogle().then((value) => Navigator.pushReplacement(context, SizeTransition4(GreetScreen()))) ;
 
         }
       }
     });
   }
+
+  // signin with email and password
+
+  Future<void> login() async {
+
+      try {
+        // Attempt to sign in
+        await Api.signIn(
+          context,
+          eController.text,
+          pController.text,
+        );
+
+
+        User? user = Api.auth.currentUser;
+        if (user != null) {
+          bool userExists = await Api.userExistsEmail(user.uid);
+
+          if (userExists) {
+            Navigator.pushReplacement(context, SizeTransition4(GreetScreen()));
+          }
+        }
+      } catch (error) {
+
+      }
+  }
+
 
   @override
   void initState() {
@@ -147,6 +177,8 @@ class _SignInOptionState extends State<SignInOption> {
                       onPressed: isButtonEnabled2
                           ? () {
                         if (_formKey2.currentState!.validate()) {
+
+                          login();
 
                         }
                       }
