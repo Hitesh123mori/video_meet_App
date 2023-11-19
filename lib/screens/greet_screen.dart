@@ -45,16 +45,7 @@ class _GreetScreenState extends State<GreetScreen> {
                 customButton(onPressed: () async{
 
 
-                  await Api.auth.signOut().then((value) async {
-                    await GoogleSignIn().signOut().then((value){
-                      Future.delayed(Duration.zero, () {
-                        Navigator.pushReplacement(
-                          context,
-                          SizeTransition5(LoginScreen()),
-                        );
-                      });
-                    });
-                  }) ;
+                 await Api.signOut(context) ;
 
 
                 }, text: 'Get Started', textColor:AppColors.theme['primaryTextColor'], buttonColor: AppColors.theme['primaryColor'],)

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:zoom_clone/custom_widgets/cutsom_helpers.dart';
 
+import '../effects/transition5.dart';
+import '../screens/login_screen.dart';
 import 'models/user.dart';
 
 class Api {
@@ -21,6 +23,24 @@ class Api {
 
 
 
+
+
+  // Sign out -----------
+  static Future<void> signOut(BuildContext context)async{
+
+
+    await Api.auth.signOut().then((value) async {
+      await GoogleSignIn().signOut().then((value){
+        Future.delayed(Duration.zero, () {
+          Navigator.pushReplacement(
+            context,
+            SizeTransition5(LoginScreen()),
+          );
+        });
+      });
+    }) ;
+
+  }
   // Auth Works here---------------------------------------------------------
 
 
