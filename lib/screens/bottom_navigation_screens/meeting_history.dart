@@ -14,7 +14,7 @@ class _HistoryState extends State<History> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
-          child:Text("History"),
+          child:Text("History",style: TextStyle(color: Colors.grey,fontSize: 32),),
         ),
       ),
     );;

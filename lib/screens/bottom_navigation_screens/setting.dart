@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart' ;
 
+import '../../resources/Api.dart';
+
 class Setting extends StatefulWidget {
   const Setting({super.key});
 
@@ -14,7 +16,12 @@ class _SettingState extends State<Setting> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
-          child:Text("Setting"),
+          child: ElevatedButton(
+            onPressed: (){
+              Api.signOut(context);
+            },
+            child: Text("Signout"),
+          ),
         ),
       ),
     );;

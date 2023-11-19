@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:zoom_clone/custom_widgets/button.dart';
 import 'package:zoom_clone/resources/models/user.dart';
+import 'package:zoom_clone/screens/bottom_navigation_screens/home_page.dart';
+import 'package:zoom_clone/screens/home_screen.dart';
 
 import '../../Pallate.dart';
 import '../../custom_widgets/auth_options_containers.dart';
@@ -34,20 +36,21 @@ class _SignInOptionState extends State<SignInOption> {
 
   // sign in with google
   void  handlegooglebutton() {
-    Dialogs.showProgressBar(context);
-    Api.signInWithGoogle(context).then((user) async {
-      Navigator.pop(context);
 
-      if (user != null) {
-        bool userExists = await Api.userExistsGoogle();
-        if (userExists) {
-          Navigator.pushReplacement(context, SizeTransition4(GreetScreen()));
-        } else {
-          await Api.createUserGoogle().then((value) => Navigator.pushReplacement(context, SizeTransition4(GreetScreen()))) ;
+      // Dialogs.showProgressBar(context);
+      Api.signInWithGoogle(context).then((user) async {
+        // Navigator.pop(context);
+        if (user != null) {
+          bool userExists = await Api.userExistsGoogle();
+          if (userExists) {
+            Navigator.pushReplacement(context, SizeTransition4(HomeScreen()));
+          } else {
+            await Api.createUserGoogle().then((value) => Navigator.pushReplacement(context, SizeTransition4(HomeScreen()))) ;
 
+          }
         }
-      }
-    });
+      });
+
   }
 
   // signin with email and password

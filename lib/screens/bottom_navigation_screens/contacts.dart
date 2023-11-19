@@ -14,7 +14,7 @@ class _ContactsState extends State<Contacts> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
-          child:Text("Contacts"),
+          child:Text("Contacts",style: TextStyle(color: Colors.grey,fontSize: 32),),
         ),
       ),
     );

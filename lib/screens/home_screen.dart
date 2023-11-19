@@ -31,6 +31,19 @@ class _HomeScreenState extends State<HomeScreen> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           appBar: AppBar(
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 13.0),
+              child: Icon(Icons.home),
+            ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 13.0),
+                child: IconButton(
+                  onPressed: (){},
+                  icon: Icon(Icons.info_outline),
+                ),
+              )
+            ],
             elevation: 0.2,
             backgroundColor: Colors.grey.shade900,
             centerTitle: true,
