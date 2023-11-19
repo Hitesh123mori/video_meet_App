@@ -1,18 +1,15 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:zoom_clone/custom_widgets/cutsom_helpers.dart';
-
 import '../effects/transition5.dart';
 import '../screens/login_screen.dart';
 import 'models/user.dart';
 
 class Api {
-
-
   // Objects ----------------------------------------------------------------
   static final FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -21,16 +18,13 @@ class Api {
   // to return current user
   static User get user => auth.currentUser!;
 
-
-
-
+  // for accessing firebase storage
+  static FirebaseStorage storage = FirebaseStorage.instance;
 
   // Sign out -----------
-  static Future<void> signOut(BuildContext context)async{
-
-
+  static Future<void> signOut(BuildContext context) async {
     await Api.auth.signOut().then((value) async {
-      await GoogleSignIn().signOut().then((value){
+      await GoogleSignIn().signOut().then((value) {
         Future.delayed(Duration.zero, () {
           Navigator.pushReplacement(
             context,
@@ -38,21 +32,20 @@ class Api {
           );
         });
       });
-    }) ;
-
+    });
   }
   // Auth Works here---------------------------------------------------------
 
-
   //1).GOOGLE SIGNIN
- static  Future<UserCredential?> signInWithGoogle(BuildContext context) async {
-    try{
+  static Future<UserCredential?> signInWithGoogle(BuildContext context) async {
+    try {
       await InternetAddress.lookup("google.com");
       // Trigger the authentication flow
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
       // Obtain the auth details from the request
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
 
       // Create a new credential
       final credential = GoogleAuthProvider.credential(
@@ -60,15 +53,16 @@ class Api {
         idToken: googleAuth?.idToken,
       );
       return await Api.auth.signInWithCredential(credential);
-    }catch(e){
-      print('_signInWithGoogle ${e}') ;
-      print('please check internet') ;
-      return null ;
+    } catch (e) {
+      print('_signInWithGoogle ${e}');
+      print('please check internet');
+      return null;
     }
   }
 
   // sign in with email/password
- static  Future<void> signIn(BuildContext context, String email, String password) async {
+  static Future<void> signIn(
+      BuildContext context, String email, String password) async {
     try {
       showDialog(
         context: context,
@@ -103,8 +97,10 @@ class Api {
       ));
     }
   }
+
   // signup method-------------------------------------------------------------------------------------------------------------------------------------
- static Future<void> signUp(BuildContext context, String email, String password) async {
+  static Future<void> signUp(
+      BuildContext context, String email, String password) async {
     try {
       showDialog(
         context: context,
@@ -120,10 +116,9 @@ class Api {
         password: password,
       );
 
-      await createUserEmail(userCredential,email,password) ;
+      await createUserEmail(userCredential, email, password);
 
       Navigator.pop(context);
-
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
 
@@ -142,28 +137,26 @@ class Api {
     }
   }
 
-
- //   Check User (log in with email/password) Existance in Firebase
+  //   Check User (log in with email/password) Existance in Firebase
 
   static Future<bool> userExistsEmail(String userId) async {
     return (await firestore.collection('users').doc(userId).get()).exists;
   }
 
   // create user if log in with email
-  static Future<void> createUserEmail(UserCredential userCredential , String email , String password) async {
-
-
-   print("User id : ${userCredential.user!.uid}") ;
+  static Future<void> createUserEmail(
+      UserCredential userCredential, String email, String password) async {
+    print("User id : ${userCredential.user!.uid}");
 
     final time = DateTime.now().millisecondsSinceEpoch.toString();
 
     final meetUser = MeetUser(
       id: userCredential.user!.uid,
       name: "",
-      email:email,
+      email: email,
       image: "",
       createdAt: time,
-      method : "Email-Password",
+      method: "Email-Password",
     );
 
     return await firestore
@@ -172,18 +165,14 @@ class Api {
         .set(meetUser.toJson());
   }
 
-
   //   Check User (log in with google) Existance in Firebase
 
   static Future<bool> userExistsGoogle() async {
     return (await firestore.collection('users').doc(user.uid).get()).exists;
   }
 
-
   // If User not exist then create(Log in with google) new Zoom User
   static Future<void> createUserGoogle() async {
-
-
     final time = DateTime.now().millisecondsSinceEpoch.toString();
 
     final meetUser = MeetUser(
@@ -192,7 +181,7 @@ class Api {
       email: user.email.toString(),
       image: user.photoURL.toString(),
       createdAt: time,
-      method : "Google",
+      method: "Google",
     );
 
     return await firestore
@@ -201,6 +190,39 @@ class Api {
         .set(meetUser.toJson());
   }
 
+  // for storing self information
+  static MeetUser me = MeetUser(
+    id: user.uid,
+    name: "",
+    email: user.email.toString(),
+    image: "",
+    createdAt: '',
+    method: '',
+  );
 
+  // update user profile picture
 
+  static Future<void> fillDetailsEmailUser(File file, String name) async {
+    //getting image file extension
+    final ext = file.path.split('.').last;
+    print('Extension: $ext');
+
+    //storage file ref with path
+    final ref = storage.ref().child('profile_pictures/${user.uid}.$ext');
+
+    //uploading image
+    await ref
+        .putFile(file, SettableMetadata(contentType: 'image/$ext'))
+        .then((p0) {
+      print('Data Transferred: ${p0.bytesTransferred / 1000} kb');
+    });
+
+    //updating image in firestore database
+    me.image = await ref.getDownloadURL();
+    me.name = name ;
+    await firestore
+        .collection('users')
+        .doc(user.uid)
+        .update({'image': me.image, 'name': me.name});
+  }
 }

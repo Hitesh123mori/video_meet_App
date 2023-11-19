@@ -10,6 +10,7 @@ import '../../custom_widgets/text_field.dart';
 import '../../effects/transition4.dart';
 import '../../effects/transition5.dart';
 import '../../resources/Api.dart';
+import '../detail_screen.dart';
 import '../greet_screen.dart';
 import '../login_screen.dart';
 import '../signup/confirmation_signup.dart';
@@ -67,7 +68,7 @@ class _SignInOptionState extends State<SignInOption> {
           bool userExists = await Api.userExistsEmail(user.uid);
 
           if (userExists) {
-            Navigator.pushReplacement(context, SizeTransition4(GreetScreen()));
+            Navigator.pushReplacement(context, SizeTransition4(DetailScreen()));
           }
         }
       } catch (error) {

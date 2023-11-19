@@ -9,6 +9,7 @@ import '../../custom_widgets/text_field.dart';
 import '../../effects/transition4.dart';
 import '../../effects/transition5.dart';
 import '../../resources/Api.dart';
+import '../detail_screen.dart';
 import '../splash_screen.dart';
 
 class SignUpOption extends StatefulWidget {
@@ -62,7 +63,7 @@ class _SignUpOptionState extends State<SignUpOption> {
         );
         print("hello done register") ;
 
-        Navigator.pushReplacement(context,SizeTransition4(GreetScreen()));
+        Navigator.pushReplacement(context,SizeTransition4(DetailScreen()));
       } catch (error) {
       }
 
@@ -186,7 +187,7 @@ class _SignUpOptionState extends State<SignUpOption> {
                       );
                       signUp().then((value) {
                         print("user created succesufully");
-                        Navigator.pushReplacement(context,SizeTransition4(GreetScreen()));
+                        Navigator.pushReplacement(context,SizeTransition4(DetailScreen()));
                       });
                     }
 
