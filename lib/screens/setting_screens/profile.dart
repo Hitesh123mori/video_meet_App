@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:zoom_clone/custom_widgets/button.dart';
-import 'package:zoom_clone/effects/transition5.dart';
-import 'package:zoom_clone/screens/home_screen.dart';
 import '../../Pallate.dart';
 import '../../custom_widgets/CustomUserInfoCard.dart';
 import '../../resources/Api.dart';
@@ -44,6 +42,17 @@ class _ProfileState extends State<Profile> {
           "Profile",
           style: TextStyle(color: AppColors.theme['primaryTextColor']),
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.logout),
+        label: Text("LOGOUT"),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        backgroundColor: AppColors.theme['primaryColor'],
+        onPressed: ()  {
+          Api.signOut(context);
+        },
       ),
       body: Column(
         children: [
@@ -97,7 +106,7 @@ class _ProfileState extends State<Profile> {
           CustomUserInfoCard(header: 'Joined on', text: MyDateUtil.getFormattedTime3(context: context, time: Api.curUser!.createdAt),),
           SizedBox(height: 30,),
           customButton(onPressed: (){}, text: "Update Profile Picture", textColor: AppColors.theme['primaryTextColor'], buttonColor: AppColors.theme['primaryColor']),
-          
+
         ],
       ),
     );
