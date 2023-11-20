@@ -20,6 +20,7 @@ class _HomePageState extends State<HomePage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+          backgroundColor:Colors.grey.shade100,
         body:SingleChildScrollView(
           child: Column(
             children: [

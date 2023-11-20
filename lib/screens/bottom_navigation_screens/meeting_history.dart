@@ -13,6 +13,7 @@ class _HistoryState extends State<History> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor:Colors.grey.shade100,
         body: Center(
           child:Text("History",style: TextStyle(color: Colors.grey,fontSize: 32),),
         ),

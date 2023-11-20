@@ -21,6 +21,7 @@ class _SettingState extends State<Setting> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor:Colors.grey.shade100,
         body:Column(
           children: [
             InkWell(

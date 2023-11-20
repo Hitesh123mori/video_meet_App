@@ -13,6 +13,7 @@ class _ContactsState extends State<Contacts> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor:Colors.grey.shade100,
         body: Center(
           child:Text("Contacts",style: TextStyle(color: Colors.grey,fontSize: 32),),
         ),
