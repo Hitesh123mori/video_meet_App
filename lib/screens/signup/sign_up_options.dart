@@ -32,10 +32,9 @@ class _SignUpOptionState extends State<SignUpOption> {
 
 // sign up with google
   void handlegooglebutton(){
-    Dialogs.showProgressBar(context);
+    // Dialogs.showProgressBar(context);
     Api.signInWithGoogle(context).then((user) async {
-      Navigator.pop(context);
-
+      // Navigator.pop(context);
       if (user != null) {
         bool userExists = await Api.userExistsGoogle();
         if (userExists) {

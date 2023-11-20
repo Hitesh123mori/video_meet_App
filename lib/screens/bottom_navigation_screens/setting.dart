@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart' ;
-
-import '../../resources/Api.dart';
+import 'package:zoom_clone/resources/Api.dart';
+import 'package:zoom_clone/resources/models/user.dart';
 
 class Setting extends StatefulWidget {
-  const Setting({super.key});
+
+
+  const Setting({super.key,});
 
   @override
   State<Setting> createState() => _SettingState();
@@ -11,18 +13,34 @@ class Setting extends StatefulWidget {
 
 class _SettingState extends State<Setting> {
   @override
+  void initState(){
+    super.initState() ;
+    Api.getSelfData(Api.user.uid) ;
+  }
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: Center(
-          child: ElevatedButton(
-            onPressed: (){
-              Api.signOut(context);
-            },
-            child: Text("Signout"),
-          ),
-        ),
+        body:Column(
+          children: [
+            InkWell(
+              onTap: (){
+                Api.signOut(context);
+              },
+              child: Card(
+                elevation: 0.2,
+                child: ListTile(
+                  title: Text(Api.curUser!.name),
+                  subtitle: Text(Api.curUser!.email),
+                  leading: CircleAvatar(
+                    radius: 40,
+                    child: Image.network(Api.curUser!.image),
+                ),
+              ),
+            ),
+            )
+          ],
+        )
       ),
     );;
   }

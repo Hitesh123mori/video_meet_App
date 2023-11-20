@@ -5,6 +5,7 @@ import 'package:zoom_clone/screens/bottom_navigation_screens/meeting_history.dar
 import 'package:zoom_clone/screens/bottom_navigation_screens/setting.dart';
 
 import '../Pallate.dart';
+import '../resources/Api.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,6 +25,12 @@ class _HomeScreenState extends State<HomeScreen> {
     Setting(),
   ];
 
+
+  @override
+  void initState(){
+    super.initState() ;
+    Api.getSelfData(Api.user.uid) ;
+  }
 
   @override
   Widget build(BuildContext context) {

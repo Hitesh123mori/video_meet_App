@@ -4,6 +4,7 @@ import 'package:zoom_clone/custom_widgets/button.dart';
 import 'package:zoom_clone/screens/home_screen.dart';
 import '../../Pallate.dart';
 import '../../custom_widgets/auth_options_containers.dart';
+import '../../custom_widgets/cutsom_helpers.dart';
 import '../../custom_widgets/text_field.dart';
 import '../../effects/transition4.dart';
 import '../../effects/transition5.dart';
@@ -30,7 +31,6 @@ class _SignInOptionState extends State<SignInOption> {
 
   // sign in with google
   void  handlegooglebutton() {
-
       // Dialogs.showProgressBar(context);
       Api.signInWithGoogle(context).then((user) async {
         // Navigator.pop(context);
@@ -61,11 +61,11 @@ class _SignInOptionState extends State<SignInOption> {
 
 
         User? user = Api.auth.currentUser;
+
         if (user != null) {
           bool userExists = await Api.userExistsEmail(user.uid);
-
           if (userExists) {
-            Navigator.pushReplacement(context, SizeTransition4(GreetScreen()));
+            Navigator.pushReplacement(context, SizeTransition4(HomeScreen()));
           }
         }
       } catch (error) {
@@ -233,7 +233,6 @@ class _SignInOptionState extends State<SignInOption> {
                       onPressed: () {  },
                       text: 'Continue with facebook',
                       path: 'assets/images/facebook.png',
-
                     ),
                   ],
                 ),
