@@ -4,8 +4,8 @@ import '../screens/splash_screen.dart';
 
 class SwitchContainer extends StatefulWidget {
   final String  ? text ;
-  final double  padding ;
-  const SwitchContainer({super.key, required this.text, required this.padding});
+
+  const SwitchContainer({super.key, required this.text});
 
   @override
   State<SwitchContainer> createState() => _SwitchContainerState();
@@ -21,25 +21,25 @@ class _SwitchContainerState extends State<SwitchContainer> {
     return Material(
       elevation: 2,
       child: Container(
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 18.0),
-              child: Text(widget.text!,style: TextStyle(fontSize: 17),),
-            ),
-            SizedBox(width: mq.width*widget.padding,),
-            Switch(
-              value: isSwitched,
-              onChanged: (value) {
-                setState(() {
-                   isSwitched = value;
-                });
-              },
-              activeTrackColor: Colors.blue.shade300,
-              activeColor: Colors.blue,
-            ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(widget.text!,style: TextStyle(fontSize: 17),),
+              Switch(
+                value: isSwitched,
+                onChanged: (value) {
+                  setState(() {
+                     isSwitched = value;
+                  });
+                },
+                activeTrackColor: Colors.blue.shade300,
+                activeColor: Colors.blue,
+              ),
 
-          ],
+            ],
+          ),
         ),
         color: Colors.white,
         height: 60,

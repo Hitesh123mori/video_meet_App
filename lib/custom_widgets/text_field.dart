@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 
 class customField extends StatelessWidget {
   final String hintText;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final bool isNumber;
   final FormFieldValidator<String>? validator;
-
+  final String? intilatext ;
 
   const customField({
     Key? key,
     required this.hintText,
-    required this.controller,
+     this.controller,
     required this.isNumber,
-    this.validator,
+    this.validator, this.intilatext,
   }) : super(key: key);
 
   @override
@@ -25,6 +25,7 @@ class customField extends StatelessWidget {
       height: 60,
       child: Center(
         child: TextFormField(
+          initialValue: intilatext,
           keyboardType: isNumber ? TextInputType.number : TextInputType.text,
           controller: controller,
           textAlign: TextAlign.center,

@@ -5,7 +5,6 @@ import 'package:zoom_clone/custom_widgets/button.dart';
 import 'package:zoom_clone/effects/transition4.dart';
 import 'package:zoom_clone/screens/greet_screen.dart';
 import 'package:zoom_clone/screens/splash_screen.dart';
-
 import '../Pallate.dart';
 import '../custom_widgets/cutsom_helpers.dart';
 import '../resources/Api.dart';
