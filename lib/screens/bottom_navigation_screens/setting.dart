@@ -97,7 +97,10 @@ class _SettingState extends State<Setting> {
                 },
               ),
               SizedBox(height: 30,),
-              customButton(onPressed: () {  }, text: 'Save Changes', textColor: AppColors.theme['primaryTextColor'], buttonColor: AppColors.theme['primaryColor'],),
+              customButton(onPressed: ()  {
+
+
+              }, text: 'Save Changes', textColor: AppColors.theme['primaryTextColor'], buttonColor: AppColors.theme['primaryColor'],),
             ],
           ),
         )

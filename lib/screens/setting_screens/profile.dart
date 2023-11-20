@@ -105,7 +105,11 @@ class _ProfileState extends State<Profile> {
           Divider(height: 0.5,),
           CustomUserInfoCard(header: 'Joined on', text: MyDateUtil.getFormattedTime3(context: context, time: Api.curUser!.createdAt),),
           SizedBox(height: 30,),
-          customButton(onPressed: (){}, text: "Update Profile Picture", textColor: AppColors.theme['primaryTextColor'], buttonColor: AppColors.theme['primaryColor']),
+          customButton(onPressed: ()async{
+
+            await Api.updateProfilePicture(File(_image!));
+
+          }, text: "Update Profile Picture", textColor: AppColors.theme['primaryTextColor'], buttonColor: AppColors.theme['primaryColor']),
 
         ],
       ),

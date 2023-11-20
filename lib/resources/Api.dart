@@ -181,6 +181,32 @@ class Api {
 
   // update user profile picture
 
+  static Future<void> updateProfilePicture(File file) async {
+    //getting image file extension
+    final ext = file.path.split('.').last;
+    print('Extension: $ext');
+
+    //storage file ref with path
+    final ref = storage.ref().child('profile_pictures/${user.uid}.$ext');
+
+    //uploading image
+    await ref
+        .putFile(file, SettableMetadata(contentType: 'image/$ext'))
+        .then((p0) {
+      print('Data Transferred: ${p0.bytesTransferred / 1000} kb');
+    });
+
+    //updating image in firestore database
+    curUser!.image = await ref.getDownloadURL();
+    await firestore
+        .collection('users')
+        .doc(curUser!.id)
+        .update({'image': curUser!.image});
+  }
+
+
+  // update user details picture
+
   static Future<void> fillDetailsEmailUser(File file, String name) async {
     //getting image file extension
     final ext = file.path.split('.').last;
@@ -219,5 +245,14 @@ class Api {
     }
     return null;
   }
+
+  // update user name
+
+  // static Future<void> updateUsername(String name) async {
+  //   firestore.collection('users').doc(user.uid).update({
+  //     'name' : name,
+  //   });
+  // }
+
 
 }
