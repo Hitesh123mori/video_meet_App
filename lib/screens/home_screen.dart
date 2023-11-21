@@ -40,14 +40,14 @@ class _HomeScreenState extends State<HomeScreen> {
           appBar: AppBar(
             leading: Padding(
               padding: const EdgeInsets.only(left: 13.0),
-              child: Icon(Icons.home),
+              child: Icon(Icons.home,color: Colors.white,),
             ),
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 13.0),
                 child: IconButton(
                   onPressed: (){},
-                  icon: Icon(Icons.info_outline),
+                  icon: Icon(Icons.info_outline,color: Colors.white,),
                 ),
               )
             ],
@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: _buildBody(),
         bottomNavigationBar: BottomNavigationBar(
           onTap: onTabTapped,
-          selectedItemColor: Colors.black,
+          selectedItemColor: AppColors.theme['primaryColor'],
           unselectedItemColor: Colors.grey,
           showUnselectedLabels : true,
           currentIndex: _currentIndex,

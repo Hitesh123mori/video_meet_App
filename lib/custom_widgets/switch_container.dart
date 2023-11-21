@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../Pallate.dart';
 import '../screens/splash_screen.dart';
 
 class SwitchContainer extends StatefulWidget {
@@ -34,8 +35,8 @@ class _SwitchContainerState extends State<SwitchContainer> {
                      isSwitched = value;
                   });
                 },
-                activeTrackColor: Colors.blue.shade300,
-                activeColor: Colors.blue,
+                activeTrackColor: Colors.blue.shade700,
+                activeColor: AppColors.theme['primaryColor'],
               ),
 
             ],

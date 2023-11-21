@@ -29,6 +29,7 @@ class _ProfileState extends State<Profile> {
             icon: Icon(
               Icons.keyboard_arrow_left_outlined,
               size: 32,
+              color: Colors.white,
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -44,8 +45,8 @@ class _ProfileState extends State<Profile> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.logout),
-        label: Text("LOGOUT"),
+        icon: Icon(Icons.logout,color: Colors.white),
+        label: Text("LOGOUT",style: TextStyle(color: Colors.white),),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
@@ -106,8 +107,9 @@ class _ProfileState extends State<Profile> {
           CustomUserInfoCard(header: 'Joined on', text: MyDateUtil.getFormattedTime3(context: context, time: Api.curUser!.createdAt),),
           SizedBox(height: 30,),
           customButton(onPressed: ()async{
-
-            await Api.updateProfilePicture(File(_image!));
+            await Api.updateProfilePicture(File(_image!)).then((value) {
+                Navigator.pop(context);
+            });
 
           }, text: "Update Profile Picture", textColor: AppColors.theme['primaryTextColor'], buttonColor: AppColors.theme['primaryColor']),
 

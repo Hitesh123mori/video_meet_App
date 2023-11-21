@@ -111,7 +111,7 @@ class _SignUpOptionState extends State<SignUpOption> {
             color: AppColors.theme['secondaryTextColor'],
           ),
           onPressed: () {
-            Navigator.push(context, SizeTransition5(LoginScreen()));
+            Navigator.pushReplacement(context, SizeTransition5(LoginScreen()));
           },
         ),
         title: Text(

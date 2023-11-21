@@ -14,7 +14,7 @@ class authContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25.0,vertical: 7),
+      padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 7),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 0.1,
