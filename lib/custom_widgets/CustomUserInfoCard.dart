@@ -18,7 +18,7 @@ class CustomUserInfoCard extends StatelessWidget {
       width: mq.width * 1,
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: 22,
+          vertical: 20,
           horizontal: 20,
         ),
         child: Padding(

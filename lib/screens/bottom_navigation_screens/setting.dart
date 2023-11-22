@@ -69,14 +69,16 @@ class _SettingState extends State<Setting> {
               ),
               SwitchContainer(text: "Connect To Audio",),
               Divider(height: 0.5,),
-              SwitchContainer(text: "Off My Video",),
+              SwitchContainer(text: "On My Video",),
+              Divider(height: 0.5,),
+              SwitchContainer(text: "On Speaker",),
               Container(
                 color: Colors.grey.shade100,
                 height: 60,
                 width: mq.width * 1,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 22,
+                    vertical: 20,
                     horizontal: 20,
                   ),
                   child: Text(

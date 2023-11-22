@@ -104,7 +104,7 @@ class _ProfileState extends State<Profile> {
           Divider(height: 0.5,),
           CustomUserInfoCard(header: 'Sign in via', text: Api.curUser!.method,),
           Divider(height: 0.5,),
-          CustomUserInfoCard(header: 'Joined on', text: MyDateUtil.getFormattedTime3(context: context, time: Api.curUser!.createdAt),),
+          CustomUserInfoCard(header: 'Joined on', text: MyDateUtil.getFormattedTime3(context: context, time: Api.curUser!.createdAt,showYear: true),),
           SizedBox(height: 30,),
           customButton(onPressed: ()async{
             await Api.updateProfilePicture(File(_image!)).then((value) {
