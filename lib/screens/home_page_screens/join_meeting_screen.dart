@@ -6,6 +6,7 @@ import 'package:zoom_clone/screens/home_screen.dart';
 import '../../Pallate.dart';
 import '../../custom_widgets/switch_container.dart';
 import '../../custom_widgets/text_field.dart';
+import '../../resources/Api.dart';
 import '../splash_screen.dart';
 
 class JoinMeeting extends StatefulWidget {
@@ -160,9 +161,11 @@ class _JoinMeetingState extends State<JoinMeeting> {
                       ),
                     ),
                   ),
-                  SwitchContainer(text: "Connect To Audio",),
+                  SwitchContainer(text: "Connect To Audio", isSwitched: Api.curUser!.isAudioConnect,),
                   Divider(height: 0.5,),
-                  SwitchContainer(text: "Off My Video",),
+                  SwitchContainer(text: "On My Video", isSwitched: Api.curUser!.isVideoOn,),
+                  Divider(height: 0.5,),
+                  SwitchContainer(text: "On My Speaker", isSwitched: Api.curUser!.isSpeakerOn,),
                 ],
               ),
             ),

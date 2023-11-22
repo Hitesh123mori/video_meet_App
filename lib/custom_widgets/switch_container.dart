@@ -5,8 +5,9 @@ import '../screens/splash_screen.dart';
 
 class SwitchContainer extends StatefulWidget {
   final String  ? text ;
+   bool  isSwitched = false ;
 
-  const SwitchContainer({super.key, required this.text});
+   SwitchContainer({super.key, required this.text, required this.isSwitched});
 
   @override
   State<SwitchContainer> createState() => _SwitchContainerState();
@@ -14,7 +15,7 @@ class SwitchContainer extends StatefulWidget {
 
 class _SwitchContainerState extends State<SwitchContainer> {
 
-  bool isSwitched = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +30,10 @@ class _SwitchContainerState extends State<SwitchContainer> {
             children: [
               Text(widget.text!,style: TextStyle(fontSize: 17),),
               Switch(
-                value: isSwitched,
+                value: widget.isSwitched ,
                 onChanged: (value) {
                   setState(() {
-                     isSwitched = value;
+                    widget.isSwitched = value;
                   });
                 },
                 activeTrackColor: Colors.blue.shade700,

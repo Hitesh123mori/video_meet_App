@@ -164,6 +164,9 @@ class Api {
       createdAt: time,
       method: "Email-Password",
       meetingId: generateUniqueId(email),
+      isAudioConnect: true,
+      isSpeakerOn: true,
+      isVideoOn: true,
     );
     return await firestore
         .collection('users')
@@ -189,6 +192,9 @@ class Api {
       createdAt: time,
       method: "Google",
        meetingId: generateUniqueId(user.email.toString()),
+       isAudioConnect: true,
+       isSpeakerOn: true,
+       isVideoOn: true,
     );
 
     return await firestore
@@ -206,6 +212,9 @@ class Api {
     createdAt: '',
     method: '',
     meetingId: '',
+    isAudioConnect: true,
+    isSpeakerOn: true,
+    isVideoOn: true,
   );
 
   // update user profile picture

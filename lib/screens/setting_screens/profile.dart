@@ -107,7 +107,7 @@ class _ProfileState extends State<Profile> {
                 (match) => "${match.group(0)} ",
           ),),
           Divider(height: 0.5,),
-          CustomUserInfoCard(header: 'Sign in via', text: Api.curUser!.method,),
+          CustomUserInfoCard(header: 'Sign up via', text: Api.curUser!.method,),
           Divider(height: 0.5,),
           CustomUserInfoCard(header: 'Joined on', text: MyDateUtil.getFormattedTime3(context: context, time: Api.curUser!.createdAt,showYear: true),),
           SizedBox(height: 30,),

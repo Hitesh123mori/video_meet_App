@@ -3,8 +3,10 @@ import 'package:zoom_clone/screens/bottom_navigation_screens/contacts.dart';
 import 'package:zoom_clone/screens/bottom_navigation_screens/home_page.dart';
 import 'package:zoom_clone/screens/bottom_navigation_screens/meeting_history.dart';
 import 'package:zoom_clone/screens/bottom_navigation_screens/setting.dart';
+import 'package:zoom_clone/screens/splash_screen.dart';
 
 import '../Pallate.dart';
+import '../custom_widgets/info_card.dart';
 import '../resources/Api.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -34,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    mq = MediaQuery.of(context).size ;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -46,7 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding: const EdgeInsets.only(right: 13.0),
                 child: IconButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    showBottomSheet();
+                  },
                   icon: Icon(Icons.info_outline,color: Colors.white,),
                 ),
               )
@@ -110,6 +115,74 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _currentIndex = index;
     });
+  }
+
+
+  void showBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            )),
+        builder: (BuildContext context) {
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.grey.shade100,
+            ),
+            child: ListView(
+              physics: BouncingScrollPhysics(),
+              shrinkWrap: true,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 10,),
+                    Text('Personal Meeting ID',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                    SizedBox(height: 5,),
+                    Text(Api.curUser!.meetingId.replaceAllMapped(
+                      RegExp(r".{4}"),
+                          (match) => "${match.group(0)} ",
+                    ),style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
+                    Padding(
+                      padding:  EdgeInsets.symmetric(horizontal:20,vertical: 10),
+                      child: Container(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding:  EdgeInsets.only(left: 12.0,right: 12),
+                                child: InfoCard(icon: Icon(Icons.video_call_outlined), OnTap: () {  }, text: 'Start Meeting',),
+                              ) ,
+                              Divider(height: 0.7,color: Colors.grey.shade100,),
+                              Padding(
+                                padding:  EdgeInsets.only(left: 12.0,right: 12),
+                                child: InfoCard(icon: Icon(Icons.share_outlined), OnTap: () {  }, text: 'Send Invitation',),
+                              ) ,
+
+                            ],
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+
+                        height: mq.height*0.11,
+                        width: mq.width*0.8,
+                      ),
+                    ),
+                    TextButton(onPressed: (){
+                      Navigator.pop(context);
+                    }, child: Text('Cancel')),
+                  ],
+                )
+              ],
+            ),
+          );
+        });
   }
 
 }
