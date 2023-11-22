@@ -55,70 +55,74 @@ class _ProfileState extends State<Profile> {
           Api.signOut(context);
         },
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: mq.height * .05,
-            width: mq.width * 1,
-          ),
-          Stack(children: [
-            _image != null
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(90),
-                    child: Image.file(
-                      File(_image!),
-                      width: mq.width * 0.4,
-                      height: mq.width * 0.4,
-                      fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            SizedBox(
+              height: mq.height * .05,
+              width: mq.width * 1,
+            ),
+            Stack(children: [
+              _image != null
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(90),
+                      child: Image.file(
+                        File(_image!),
+                        width: mq.width * 0.4,
+                        height: mq.width * 0.4,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : CircleAvatar(
+                       radius: 75,
+                      backgroundColor: Colors.grey.shade200,
+                      backgroundImage: NetworkImage( Api.curUser!.image),
                     ),
-                  )
-                : CircleAvatar(
-                     radius: 75,
-                    backgroundColor: Colors.grey.shade200,
-                    backgroundImage: NetworkImage( Api.curUser!.image),
+              Positioned(
+                top: mq.height * 0.13,
+                left: mq.width * 0.29,
+                child: InkWell(
+                  onTap: () {
+                    showBottomSheet();
+                  },
+                  child: CircleAvatar(
+                    child: Icon(
+                      Icons.edit,
+                      color: Colors.white,
+                    ),
+                    backgroundColor: Colors.black,
                   ),
-            Positioned(
-              top: mq.height * 0.13,
-              left: mq.width * 0.29,
-              child: InkWell(
-                onTap: () {
-                  showBottomSheet();
-                },
-                child: CircleAvatar(
-                  child: Icon(
-                    Icons.edit,
-                    color: Colors.white,
-                  ),
-                  backgroundColor: Colors.black,
                 ),
-              ),
-            )
-          ]),
-          SizedBox(
-            height: mq.height * .07,
-            width: mq.width * 1,
-          ),
-          CustomUserInfoCard(header: 'Your Name', text: Api.curUser!.name,),
-          Divider(height: 0.5,),
-          CustomUserInfoCard(header: 'Your Email', text: Api.curUser!.email,),
-          Divider(height: 0.5,),
-          CustomUserInfoCard(header: 'Personal MeetingId', text: Api.curUser!.meetingId.replaceAllMapped(
-            RegExp(r".{4}"),
-                (match) => "${match.group(0)} ",
-          ),),
-          Divider(height: 0.5,),
-          CustomUserInfoCard(header: 'Sign up via', text: Api.curUser!.method,),
-          Divider(height: 0.5,),
-          CustomUserInfoCard(header: 'Joined on', text: MyDateUtil.getFormattedTime3(context: context, time: Api.curUser!.createdAt,showYear: true),),
-          SizedBox(height: 30,),
-          customButton(onPressed: ()async{
-            await Api.updateProfilePicture(File(_image!)).then((value) {
-                Navigator.pop(context);
-            });
-
-          }, text: "Update Profile Picture", textColor: AppColors.theme['primaryTextColor'], buttonColor: AppColors.theme['primaryColor']),
-
-        ],
+              )
+            ]),
+            SizedBox(
+              height: mq.height * .07,
+              width: mq.width * 1,
+            ),
+            CustomUserInfoCard(header: 'Your Name', text: Api.curUser!.name,),
+            Divider(height: 0.5,),
+            CustomUserInfoCard(header: 'Your Email', text: Api.curUser!.email,),
+            Divider(height: 0.5,),
+            CustomUserInfoCard(header: 'Personal MeetingId', text: Api.curUser!.meetingId.replaceAllMapped(
+              RegExp(r".{4}"),
+                  (match) => "${match.group(0)} ",
+            ),),
+            Divider(height: 0.5,),
+            CustomUserInfoCard(header: 'Sign up via', text: Api.curUser!.method,),
+            Divider(height: 0.5,),
+            CustomUserInfoCard(header: 'Joined on', text: MyDateUtil.getFormattedTime3(context: context, time: Api.curUser!.createdAt,showYear: true),),
+            SizedBox(height:5,),
+            customButton(onPressed: ()async{
+              await Api.updateProfilePicture(File(_image!)).then((value) {
+                  Navigator.pop(context);
+              });
+        
+            }, text: "Update Profile Picture", textColor: AppColors.theme['primaryTextColor'], buttonColor: AppColors.theme['primaryColor']),
+            SizedBox(height: 100,),
+        
+          ],
+        ),
       ),
     );
   }

@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge) ;
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent,systemNavigationBarColor: Colors.transparent));
       if(Api.auth != null){
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomeScreen())) ;
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LoginScreen())) ;
       }else{
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginScreen())) ;
       }
