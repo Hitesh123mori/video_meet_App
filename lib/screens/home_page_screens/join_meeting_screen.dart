@@ -33,20 +33,21 @@ class _JoinMeetingState extends State<JoinMeeting> {
 
     // Add listeners to text controllers
     idController.addListener(updateButtonState);
-    nameController.addListener(updateButtonState);
+    // nameController.addListener(updateButtonState);
   }
 
   void updateButtonState() {
     setState(() {
       isButtonEnabled =
-          idController.text.isNotEmpty && nameController.text.isNotEmpty;
+          idController.text.isNotEmpty ;
+              // && nameController.text.isNotEmpty;
     });
   }
 
   @override
   void dispose() {
     idController.removeListener(updateButtonState);
-    nameController.removeListener(updateButtonState);
+    // nameController.removeListener(updateButtonState);
     super.dispose();
   }
 
@@ -118,8 +119,8 @@ class _JoinMeetingState extends State<JoinMeeting> {
                     ),
                   ),
                   customField(
+                    intilatext:Api.curUser!.name,
                     hintText: 'Enter Name',
-                    controller: nameController,
                     isNumber: false,
                     validator: (value) {
                       if (value!.isEmpty) {
