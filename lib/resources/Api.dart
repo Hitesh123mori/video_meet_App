@@ -456,6 +456,22 @@ class Api {
     launchUrl(Uri.parse(url)) ;
   }
 
+  // get data of created meeting
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getCreatedMeetingData() {
+
+    return firestore
+        .collection('users/${curUser!.id}/your_meeting')
+        .snapshots();
+  }
+
+  // get data of joined meeting
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getJoinedMeetingData() {
+
+    return firestore
+        .collection('users/${curUser!.id}/Joined_Meeting')
+        .snapshots();
+  }
+
 
 
 

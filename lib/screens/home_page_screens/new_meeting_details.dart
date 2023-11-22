@@ -124,7 +124,7 @@ class _MeetingDetailsState extends State<MeetingDetails> {
                     horizontal: 20,
                   ),
                   child: Text(
-                    "ENTER MEETING PASSWORD",
+                    "CREATE MEETING PASSWORD",
                     style: TextStyle(color: Colors.grey.shade600),
                   ),
                 ),
@@ -158,7 +158,7 @@ class _MeetingDetailsState extends State<MeetingDetails> {
                     horizontal: 20,
                   ),
                   child: Text(
-                    "YOU CANNOT CHANGE BELOW DETAILS",
+                    "MEETING DETAILS",
                     style: TextStyle(color: Colors.grey.shade600),
                   ),
                 ),
