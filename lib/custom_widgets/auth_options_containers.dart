@@ -14,7 +14,7 @@ class authContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 7),
+      padding: const EdgeInsets.symmetric(horizontal: 22.0,vertical: 3),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 0.1,
@@ -26,21 +26,20 @@ class authContainer extends StatelessWidget {
         ),
         onPressed: onPressed,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 10.0,bottom: 10),
+              padding: EdgeInsets.only(top: 13.0,bottom: 13),
               child: CircleAvatar(
                 backgroundColor :Colors.white,
                 backgroundImage: AssetImage(path),
               ),
             ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Text(
-                  text,
-                  style: TextStyle(color: Colors.black, fontFamily: "LatoBold",fontSize: 18),
-                ),
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Text(
+                text,
+                style: TextStyle(color: Colors.black, fontFamily: "LatoBold",fontSize: 18),
               ),
             ),
           ],

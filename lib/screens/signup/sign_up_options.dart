@@ -221,7 +221,7 @@ class _SignUpOptionState extends State<SignUpOption> {
                     horizontal: 20,
                   ),
                   child: Text(
-                    "OTHER SIGN IN METHODS",
+                    "OTHER SIGN UP METHODS",
                     style: TextStyle(color: Colors.grey.shade600),
                   ),
                 ),

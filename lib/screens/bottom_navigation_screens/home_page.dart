@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: Row(
                   children: [
-                    SizedBox(width: mq.width*0.03),
+                    SizedBox(width: mq.width*0.05),
                     OptionContainer(icon: Icon(Icons.video_call,size: 28,color: Colors.white), text: 'New Meeting', color: Colors.orange.shade800, onTap: () {
                       Navigator.push(context,SizeTransition5(NewMeeting())) ;
                     },),
@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                     OptionContainer(icon: Icon(Icons.schedule,color: Colors.white,size: 28,), text: 'Schedule', color:AppColors.theme['primaryColor'], onTap: () {  },),
                     SizedBox(width: mq.width*0.05,),
                     OptionContainer(icon: Icon(Icons.ios_share_sharp,color: Colors.white,size: 28), text: 'Share Screen', color: AppColors.theme['primaryColor'], onTap: () {  },),
-                    SizedBox(width: mq.width*0.01),
+                    SizedBox(width: mq.width*0.05,),
                   ],
                 ),
               ),

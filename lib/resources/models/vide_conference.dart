@@ -31,6 +31,41 @@ class VideoConferencePage extends StatelessWidget {
         userName: name,
         conferenceID: conferenceID,
         config: ZegoUIKitPrebuiltVideoConferenceConfig(
+       //    onCameraTurnOnByOthersConfirmation: (BuildContext context) async {
+       //   const textStyle = TextStyle(
+       //     fontSize: 10,
+       //    color: Colors.white70,
+       //   );
+       //   return await showDialog(
+       //     context: context,
+       //     barrierDismissible: false,
+       //     builder: (BuildContext context) {
+       //       return AlertDialog(
+       //         backgroundColor: Colors.blue[900]!.withOpacity(0.9),
+       //       title: const Text(
+       //       'You have a request to turn on your camera',
+       //       style: textStyle,
+       //       ),
+       //         content: const Text(
+       //           'Do you agree to turn on the camera?',
+       //           style: textStyle,
+       //         ),
+       //         actions: [
+       //           ElevatedButton(
+       //             child: const Text('Cancel', style: textStyle),
+       //             onPressed: () => Navigator.of(context).pop(false),
+       //          ),
+       //           ElevatedButton(
+       //             child: const Text('OK', style: textStyle),
+       //             onPressed: () {
+       //               Navigator.of(context).pop(true);
+       //             },
+       //           ),
+       //         ],
+       //       );
+       //     },
+       //  );
+       // },
           topMenuBarConfig : ZegoTopMenuBarConfig(style: ZegoMenuBarStyle.dark,title: "  MeetWith",hideAutomatically: true,),
           bottomMenuBarConfig: ZegoBottomMenuBarConfig(style: ZegoMenuBarStyle.dark,),
           turnOnCameraWhenJoining: isVideoOn,

@@ -39,6 +39,7 @@ dependencies:
   cached_network_image: ^3.3.0
   zego_uikit_prebuilt_video_conference: ^2.6.3
   crypto: ^3.0.3
+  url_launcher: ^6.2.1
 
 
 

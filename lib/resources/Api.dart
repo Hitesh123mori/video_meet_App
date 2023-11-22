@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../effects/transition5.dart';
 import '../screens/login_screen.dart';
 import 'models/user.dart';
@@ -294,6 +295,27 @@ class Api {
        'isVideoOn' : isVideo,
     });
   }
+
+  // sending invitaition to whaatapp
+
+
+  static void sendInvitation(String data){
+    String url = "whatsapp://send?text=${data}" ;
+    launchUrl(Uri.parse(url)) ;
+  }
+
+  // static void sendInvitation(String data) async {
+  //
+  //   String message = Uri.encodeComponent(data);
+  //   String url = "https://whatsapp://send?text=$message";
+  //
+  //   if (await canLaunch(url)) {
+  //     await launch(url);
+  //   } else {
+  //     throw 'Could not launch $url';
+  //   }
+  // }
+
 
 
 }
