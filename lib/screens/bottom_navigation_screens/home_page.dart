@@ -5,6 +5,7 @@ import '../../Pallate.dart';
 import '../../custom_widgets/home_page_container.dart';
 import '../home_page_screens/join_meeting_screen.dart';
 import '../home_page_screens/new_meeting.dart';
+import '../home_page_screens/new_meeting_details.dart';
 import '../splash_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,7 +32,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     SizedBox(width: mq.width*0.05),
                     OptionContainer(icon: Icon(Icons.video_call,size: 28,color: Colors.white), text: 'New Meeting', color: Colors.orange.shade800, onTap: () {
-                      Navigator.push(context,SizeTransition5(NewMeeting())) ;
+                      Navigator.push(context,SizeTransition5(MeetingDetails())) ;
                     },),
                     SizedBox(width: mq.width*0.05,),
                     OptionContainer(icon: Icon(Icons.add,color: Colors.white,size: 28,), text: 'Join Meeting', color: AppColors.theme['primaryColor'], onTap: () {

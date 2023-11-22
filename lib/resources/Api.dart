@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:zoom_clone/resources/models/meeting.dart';
 import '../effects/transition5.dart';
 import '../screens/login_screen.dart';
 import 'models/user.dart';
@@ -22,6 +23,7 @@ class Api {
   static User get user => auth.currentUser!;
 
   static MeetUser? curUser ;
+
 
 
   // for accessing firebase storage
@@ -181,6 +183,156 @@ class Api {
     return (await firestore.collection('users').doc(user.uid).get()).exists;
   }
 
+
+  // create a new meeting
+
+  static Future<DocumentReference<Map<String, dynamic>>> createMeeting(String meetingName,String password) async {
+    final time = DateTime.now().millisecondsSinceEpoch.toString();
+
+    final newMeeting = Meeting(
+      name: meetingName,
+      hostName: Api.curUser!.name,
+      hostEmail: Api.curUser!.email,
+      date: time,
+      meetingId: Api.curUser!.meetingId,
+      password: password,
+    );
+
+    return await FirebaseFirestore.instance
+        .collection('users/${Api.curUser!.id}/your_meeting') // Use correct path
+        .add(newMeeting.toJson());
+  }
+
+
+
+  // meeting that you joined
+
+
+  static Future<Meeting?> fetchMeetingDataInHost(String id, String meetingPass, String meetingId , BuildContext context) async {
+    try {
+      final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection("users/$id/your_meeting")
+          .where("password", isEqualTo: meetingPass)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        return await getMeetingInfo(querySnapshot.docs.first.id.toString(), id);
+      } else {
+        // Show a dialog if the query is not found
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Meeting Not Found'),
+              content: Text('The meeting with ID $meetingId was not currently running.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+        return null;
+      }
+    } catch (e) {
+      print("Error fetching meeting data: $e");
+      return null;
+    }
+  }
+
+
+
+  // fetch data for finding host id
+  static Future<MeetUser?> fetchMeetingDataJoinedByAttribute(String userMeetingId,BuildContext context) async {
+    final QuerySnapshot querySnapshot = await firestore.collection("users")
+        .where("meetingId", isEqualTo: userMeetingId)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+
+
+      return await getJoiningData(querySnapshot.docs.first.id.toString()) ;
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Meeting ID Not Found'),
+            content: Text('Meeting ID $userMeetingId is not exist , Please try another.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+    return null;
+  }
+
+
+  // fetch data for finding host all info
+  static Future<MeetUser?> getJoiningData(String documentId) async {
+    DocumentSnapshot doc = await firestore.collection("users").doc(documentId).get();
+
+    if (doc.exists) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      print("Mynaame : ${MeetUser.fromJson(data).name}") ;
+      return MeetUser.fromJson(data);
+    } else {
+      return null;
+    }
+  }
+
+  //fetch specific meeting
+
+  static Future<Meeting?> getMeetingInfo(String documentId, String id) async {
+
+    DocumentSnapshot doc = await firestore.collection("users/${id}/your_meeting").doc(documentId).get();
+
+    if (doc.exists) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      return Meeting.fromJson(data);
+    } else {
+      return null;
+    }
+  }
+
+
+
+
+  // store joining data in curUser database
+  static Future<DocumentReference<Map<String, dynamic>>> joinMeeting(MeetUser meetUser,String Password , BuildContext context) async {
+
+
+    Meeting? meeting =  await fetchMeetingDataInHost(meetUser.id,Password,meetUser.meetingId,context) ;
+
+
+    final newMeeting = Meeting(
+      name: meeting!.name,
+      hostName: meeting!.hostName,
+      hostEmail: meeting!.hostEmail,
+      date: meeting!.date,
+      meetingId: meetUser.meetingId,
+      password: '',
+    );
+
+    return await FirebaseFirestore.instance
+        .collection('users/${Api.curUser!.id}/Joined_Meeting') // Use correct path
+        .add(newMeeting.toJson());
+  }
+
+
+
+
   // If User not exist then create(Log in with google) new Zoom User
   static Future<void> createUserGoogle() async {
     final time = DateTime.now().millisecondsSinceEpoch.toString();
@@ -296,7 +448,7 @@ class Api {
     });
   }
 
-  // sending invitaition to whaatapp
+  // sending invitaition to whatsapp
 
 
   static void sendInvitation(String data){
@@ -304,17 +456,6 @@ class Api {
     launchUrl(Uri.parse(url)) ;
   }
 
-  // static void sendInvitation(String data) async {
-  //
-  //   String message = Uri.encodeComponent(data);
-  //   String url = "https://whatsapp://send?text=$message";
-  //
-  //   if (await canLaunch(url)) {
-  //     await launch(url);
-  //   } else {
-  //     throw 'Could not launch $url';
-  //   }
-  // }
 
 
 

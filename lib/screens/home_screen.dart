@@ -10,6 +10,7 @@ import '../Pallate.dart';
 import '../custom_widgets/info_card.dart';
 import '../resources/Api.dart';
 import 'home_page_screens/new_meeting.dart';
+import 'home_page_screens/new_meeting_details.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -172,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   icon: Icon(Icons.video_call_outlined),
                                   OnTap: () {
                                     Navigator.push(
-                                        context, SizeTransition5(NewMeeting()));
+                                        context, SizeTransition5(MeetingDetails()));
                                   },
                                   text: 'Start Meeting',
                                 ),

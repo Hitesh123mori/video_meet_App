@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:zoom_clone/custom_widgets/button.dart';
 import 'package:zoom_clone/effects/transition4.dart';
 import 'package:zoom_clone/resources/models/vide_conference.dart';
+import 'package:zoom_clone/resources/my_custom_date.dart';
 import 'package:zoom_clone/screens/home_screen.dart';
 
 import '../../Pallate.dart';
 import '../../custom_widgets/switch_container.dart';
 import '../../custom_widgets/text_field.dart';
 import '../../resources/Api.dart';
+import '../../resources/models/user.dart';
 import '../splash_screen.dart';
-import 'new_meeting.dart';
+
 
 class JoinMeeting extends StatefulWidget {
   const JoinMeeting({super.key});
@@ -21,6 +23,7 @@ class JoinMeeting extends StatefulWidget {
 class _JoinMeetingState extends State<JoinMeeting> {
   TextEditingController idController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  TextEditingController passController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -39,12 +42,13 @@ class _JoinMeetingState extends State<JoinMeeting> {
     // Add listeners to text controllers
     idController.addListener(updateButtonState);
     nameController.addListener(updateButtonState);
+    passController.addListener(updateButtonState);
   }
 
   void updateButtonState() {
     setState(() {
       isButtonEnabled =
-          idController.text.isNotEmpty && nameController.text.isNotEmpty;
+          idController.text.isNotEmpty && nameController.text.isNotEmpty && passController.text.isNotEmpty ;
     });
   }
 
@@ -52,6 +56,7 @@ class _JoinMeetingState extends State<JoinMeeting> {
   void dispose() {
     idController.removeListener(updateButtonState);
     nameController.removeListener(updateButtonState);
+    passController.removeListener(updateButtonState);
     super.dispose();
   }
 
@@ -107,6 +112,20 @@ class _JoinMeetingState extends State<JoinMeeting> {
                       return null;
                     },
                   ),
+                  SizedBox(
+                    height: mq.height * 0.02,
+                  ),
+                  customField(
+                    hintText: 'Meeting Password',
+                    controller: passController,
+                    isNumber: false,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Enter Your Meeting Password';
+                      }
+                      return null;
+                    },
+                  ),
                   Container(
                     color: Colors.grey.shade100,
                     height: 60,
@@ -139,19 +158,28 @@ class _JoinMeetingState extends State<JoinMeeting> {
                   ),
                   customButton(
                     onPressed: isButtonEnabled
-                        ? () {
+                        ? () async {
                             if (_formKey.currentState!.validate()) {
-                              Navigator.push(
-                                  context,
-                                  SizeTransition4(VideoConferencePage(
-                                    conferenceID: idController.text,
-                                    isAudioOn: isAudio,
-                                    isVideoOn: isVideo,
-                                    isSpeakerOn: isSpeaker,
-                                    name: nameController.text,
-                                    userId: Api.curUser!.id,
-                                    profileImage: Api.curUser!.image,
-                                  )));
+
+                              await Api.joinMeeting(await Api.fetchMeetingDataJoinedByAttribute(idController.text,context)?? MeetUser(image: "", name: "", createdAt: "", id:
+                              "", email: "", method: "", meetingId: "", isAudioConnect: false, isSpeakerOn: false, isVideoOn:false),passController.text,context).then((value) {
+
+
+                                Navigator.push(
+                                          context,
+                                          SizeTransition4(VideoConferencePage(
+                                            conferenceID: idController.text,
+                                            isAudioOn: isAudio,
+                                            isVideoOn: isVideo,
+                                            isSpeakerOn: isSpeaker,
+                                            name: nameController.text,
+                                            userId: Api.curUser!.id,
+                                            profileImage: Api.curUser!.image,
+                                          )));
+
+
+                              });
+
                             }
                           }
                         : () {},
