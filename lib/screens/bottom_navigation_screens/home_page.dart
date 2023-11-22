@@ -4,6 +4,7 @@ import 'package:zoom_clone/effects/transition5.dart';
 import '../../Pallate.dart';
 import '../../custom_widgets/home_page_container.dart';
 import '../home_page_screens/join_meeting_screen.dart';
+import '../home_page_screens/new_meeting.dart';
 import '../splash_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,7 +30,9 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   children: [
                     SizedBox(width: 10,),
-                    OptionContainer(icon: Icon(Icons.video_call,size: 28,color: Colors.white), text: 'New Meeting', color: Colors.orange.shade800, onTap: () {  },),
+                    OptionContainer(icon: Icon(Icons.video_call,size: 28,color: Colors.white), text: 'New Meeting', color: Colors.orange.shade800, onTap: () {
+                      Navigator.push(context,SizeTransition5(NewMeeting())) ;
+                    },),
                     SizedBox(width: 30,),
                     OptionContainer(icon: Icon(Icons.add,color: Colors.white,size: 28,), text: 'Join Meeting', color: AppColors.theme['primaryColor'], onTap: () {
                       Navigator.push(context, SizeTransition5(JoinMeeting())) ;

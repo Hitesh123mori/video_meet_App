@@ -284,13 +284,16 @@ class Api {
     return null;
   }
 
-  // update user name
+  // update user  join options
 
-  // static Future<void> updateUsername(String name) async {
-  //   firestore.collection('users').doc(user.uid).update({
-  //     'name' : name,
-  //   });
-  // }
+  static Future<void> updateJoinOptions(String name,bool isAudio,bool isVideo ,bool isSpeaker) async {
+    firestore.collection('users').doc(user.uid).update({
+      'name' : name,
+      'isAudioConnect' :isAudio,
+       'isSpeakerOn'  :isSpeaker,
+       'isVideoOn' : isVideo,
+    });
+  }
 
 
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' ;
+import 'package:zoom_clone/effects/transition5.dart';
 import 'package:zoom_clone/screens/bottom_navigation_screens/contacts.dart';
 import 'package:zoom_clone/screens/bottom_navigation_screens/home_page.dart';
 import 'package:zoom_clone/screens/bottom_navigation_screens/meeting_history.dart';
@@ -8,6 +9,7 @@ import 'package:zoom_clone/screens/splash_screen.dart';
 import '../Pallate.dart';
 import '../custom_widgets/info_card.dart';
 import '../resources/Api.dart';
+import 'home_page_screens/new_meeting.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -154,7 +156,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               Padding(
                                 padding:  EdgeInsets.only(left: 12.0,right: 12),
-                                child: InfoCard(icon: Icon(Icons.video_call_outlined), OnTap: () {  }, text: 'Start Meeting',),
+                                child: InfoCard(icon: Icon(Icons.video_call_outlined), OnTap: () {
+                                  Navigator.push(context, SizeTransition5(NewMeeting()));
+                                }, text: 'Start Meeting',),
                               ) ,
                               Divider(height: 0.7,color: Colors.grey.shade100,),
                               Padding(

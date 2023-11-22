@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zoom_clone/custom_widgets/button.dart';
 import 'package:zoom_clone/effects/transition4.dart';
+import 'package:zoom_clone/resources/models/vide_conference.dart';
 import 'package:zoom_clone/screens/home_screen.dart';
 
 import '../../Pallate.dart';
@@ -8,6 +9,7 @@ import '../../custom_widgets/switch_container.dart';
 import '../../custom_widgets/text_field.dart';
 import '../../resources/Api.dart';
 import '../splash_screen.dart';
+import 'new_meeting.dart';
 
 class JoinMeeting extends StatefulWidget {
   const JoinMeeting({super.key});
@@ -24,8 +26,11 @@ class _JoinMeetingState extends State<JoinMeeting> {
 
   bool isButtonEnabled = false;
 
-  bool isSwitched = false ;
+  bool isAudio = Api.curUser!.isAudioConnect;
 
+  bool isVideo = Api.curUser!.isVideoOn;
+
+  bool isSpeaker = Api.curUser!.isSpeakerOn;
 
   @override
   void initState() {
@@ -33,21 +38,20 @@ class _JoinMeetingState extends State<JoinMeeting> {
 
     // Add listeners to text controllers
     idController.addListener(updateButtonState);
-    // nameController.addListener(updateButtonState);
+    nameController.addListener(updateButtonState);
   }
 
   void updateButtonState() {
     setState(() {
       isButtonEnabled =
-          idController.text.isNotEmpty ;
-              // && nameController.text.isNotEmpty;
+          idController.text.isNotEmpty && nameController.text.isNotEmpty;
     });
   }
 
   @override
   void dispose() {
     idController.removeListener(updateButtonState);
-    // nameController.removeListener(updateButtonState);
+    nameController.removeListener(updateButtonState);
     super.dispose();
   }
 
@@ -119,8 +123,9 @@ class _JoinMeetingState extends State<JoinMeeting> {
                     ),
                   ),
                   customField(
-                    intilatext:Api.curUser!.name,
+                    // intilatext:Api.curUser!.name,
                     hintText: 'Enter Name',
+                    controller: nameController,
                     isNumber: false,
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -135,7 +140,19 @@ class _JoinMeetingState extends State<JoinMeeting> {
                   customButton(
                     onPressed: isButtonEnabled
                         ? () {
-                            if (_formKey.currentState!.validate()) {}
+                            if (_formKey.currentState!.validate()) {
+                              Navigator.push(
+                                  context,
+                                  SizeTransition4(VideoConferencePage(
+                                    conferenceID: idController.text,
+                                    isAudioOn: isAudio,
+                                    isVideoOn: isVideo,
+                                    isSpeakerOn: isSpeaker,
+                                    name: nameController.text,
+                                    userId: Api.curUser!.id,
+                                    profileImage: Api.curUser!.image,
+                                  )));
+                            }
                           }
                         : () {},
                     text: 'Join a Meeting',
@@ -146,7 +163,6 @@ class _JoinMeetingState extends State<JoinMeeting> {
                         ? AppColors.theme['primaryColor']
                         : AppColors.theme['buttonColor2'],
                   ),
-
                   Container(
                     color: Colors.grey.shade100,
                     height: 60,
@@ -162,11 +178,39 @@ class _JoinMeetingState extends State<JoinMeeting> {
                       ),
                     ),
                   ),
-                  SwitchContainer(text: "Connect To Audio", isSwitched: Api.curUser!.isAudioConnect,),
-                  Divider(height: 0.5,),
-                  SwitchContainer(text: "On My Video", isSwitched: Api.curUser!.isVideoOn,),
-                  Divider(height: 0.5,),
-                  SwitchContainer(text: "On My Speaker", isSwitched: Api.curUser!.isSpeakerOn,),
+                  SwitchContainer(
+                    text: "Connect To Audio",
+                    isSwitched: isAudio,
+                    onChanged: (bool value) {
+                      setState(() {
+                        isAudio = value;
+                      });
+                    },
+                  ),
+                  Divider(
+                    height: 0.5,
+                  ),
+                  SwitchContainer(
+                    text: "On My Video",
+                    isSwitched: isVideo,
+                    onChanged: (bool value) {
+                      setState(() {
+                        isVideo = value;
+                      });
+                    },
+                  ),
+                  Divider(
+                    height: 0.5,
+                  ),
+                  SwitchContainer(
+                    text: "On My Speaker",
+                    isSwitched: isSpeaker,
+                    onChanged: (bool value) {
+                      setState(() {
+                        isSpeaker = value;
+                      });
+                    },
+                  ),
                 ],
               ),
             ),

@@ -7,13 +7,14 @@ class customField extends StatelessWidget {
   final bool isNumber;
   final FormFieldValidator<String>? validator;
   final String? intilatext ;
+  final void Function(String?)? onSaved;
 
   const customField({
     Key? key,
     required this.hintText,
      this.controller,
     required this.isNumber,
-    this.validator, this.intilatext,
+    this.validator, this.intilatext, this.onSaved,
   }) : super(key: key);
 
   @override
@@ -25,6 +26,7 @@ class customField extends StatelessWidget {
       height: 60,
       child: Center(
         child: TextFormField(
+          onSaved: onSaved,
           initialValue: intilatext,
           keyboardType: isNumber ? TextInputType.number : TextInputType.text,
           controller: controller,

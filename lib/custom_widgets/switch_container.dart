@@ -6,8 +6,11 @@ import '../screens/splash_screen.dart';
 class SwitchContainer extends StatefulWidget {
   final String  ? text ;
    bool  isSwitched = false ;
+   final ValueChanged<bool> onChanged;
 
-   SwitchContainer({super.key, required this.text, required this.isSwitched});
+
+
+   SwitchContainer({super.key, required this.text, required this.isSwitched, required this.onChanged});
 
   @override
   State<SwitchContainer> createState() => _SwitchContainerState();
@@ -31,11 +34,12 @@ class _SwitchContainerState extends State<SwitchContainer> {
               Text(widget.text!,style: TextStyle(fontSize: 17),),
               Switch(
                 value: widget.isSwitched ,
-                onChanged: (value) {
-                  setState(() {
-                    widget.isSwitched = value;
-                  });
-                },
+                // onChanged: (value) {
+                //   setState(() {
+                //     widget.isSwitched = value;
+                //   });
+                // },
+                onChanged: widget.onChanged,
                 activeTrackColor: Colors.blue.shade700,
                 activeColor: AppColors.theme['primaryColor'],
               ),
