@@ -6,6 +6,7 @@ class MeetUser {
     required this.id,
     required this.email,
     required this.method ,
+    required this.meetingId ,
   });
   late String image;
   late String name;
@@ -13,6 +14,7 @@ class MeetUser {
   late String id;
   late String email;
   late String method ;
+  late String meetingId ;
 
   MeetUser.fromJson(Map<String, dynamic> json) {
     image = json['image'] ?? '';
@@ -21,7 +23,7 @@ class MeetUser {
     id = json['id'] ?? '';
     email = json['email'] ?? '';
     method = json['method'] ?? '';
-
+    meetingId = json['meetingId'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
@@ -32,6 +34,7 @@ class MeetUser {
     data['id'] = id;
     data['email'] = email;
     data['method'] = method;
+    data['meetingId'] = meetingId ;
     return data;
   }
 }

@@ -102,6 +102,11 @@ class _ProfileState extends State<Profile> {
           Divider(height: 0.5,),
           CustomUserInfoCard(header: 'Your Email', text: Api.curUser!.email,),
           Divider(height: 0.5,),
+          CustomUserInfoCard(header: 'Personal MeetingId', text: Api.curUser!.meetingId.replaceAllMapped(
+            RegExp(r".{4}"),
+                (match) => "${match.group(0)} ",
+          ),),
+          Divider(height: 0.5,),
           CustomUserInfoCard(header: 'Sign in via', text: Api.curUser!.method,),
           Divider(height: 0.5,),
           CustomUserInfoCard(header: 'Joined on', text: MyDateUtil.getFormattedTime3(context: context, time: Api.curUser!.createdAt,showYear: true),),

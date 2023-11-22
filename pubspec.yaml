@@ -38,6 +38,7 @@ dependencies:
   firebase_storage: ^11.2.8
   cached_network_image: ^3.3.0
   zego_uikit_prebuilt_video_conference: ^2.6.3
+  crypto: ^3.0.3
 
 
 

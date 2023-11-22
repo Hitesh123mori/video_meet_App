@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -122,6 +124,31 @@ class Api {
     return (await firestore.collection('users').doc(userId).get()).exists;
   }
 
+  // creating a personal meeting id for each user
+
+
+
+ static String generateUniqueId(String email) {
+
+    var bytes = utf8.encode(email);
+    var digest = sha256.convert(bytes);
+
+
+    int id = int.parse(digest.toString().substring(0, 8), radix: 16);
+
+    String idString = id.toString();
+
+
+    idString = idString.replaceFirst(RegExp('^0+'), '');
+
+
+    idString = idString.isEmpty ? '0' : idString;
+
+    idString = idString.padLeft(12, '0');
+
+    return idString;
+  }
+
   // create user if log in with email
   static Future<void> createUserEmail(
       UserCredential userCredential, String email, String password) async {
@@ -136,8 +163,8 @@ class Api {
       image: "",
       createdAt: time,
       method: "Email-Password",
+      meetingId: generateUniqueId(email),
     );
-
     return await firestore
         .collection('users')
         .doc(userCredential.user!.uid)
@@ -161,6 +188,7 @@ class Api {
       image: user.photoURL.toString(),
       createdAt: time,
       method: "Google",
+       meetingId: generateUniqueId(user.email.toString()),
     );
 
     return await firestore
@@ -177,6 +205,7 @@ class Api {
     image: user.photoURL.toString(),
     createdAt: '',
     method: '',
+    meetingId: '',
   );
 
   // update user profile picture
