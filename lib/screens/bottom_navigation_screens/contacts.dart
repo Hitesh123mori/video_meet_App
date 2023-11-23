@@ -33,57 +33,53 @@ class _ContactsState extends State<Contacts> {
             Navigator.push(context, SizeTransition1(AllUsers())) ;
           },
         ),
-        body: Column(
-          children: [
-            SizedBox(height: 10,),
-            StreamBuilder(
-              stream: Api.getYourContact(),
-              builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                  case ConnectionState.none:
-                  // return const Center(
-                  //   child: CircularProgressIndicator(),
-                  // );
-                  case ConnectionState.active:
-                  case ConnectionState.done:
-                    final data = snapshot.data?.docs;
-                    list = data?.map((e) => MeetUser.fromJson(e.data())).toList() ??
-                        [];
-
-                    print("#length :  ${list.length}");
-
-                    return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 18.0),
-                      child: list.isEmpty
-                          ? Center(
-                        child: Padding(
-                          padding:  EdgeInsets.symmetric(vertical: mq.height*0.35),
-                          child: Text(
-                            "No Contacts",
-                            style: TextStyle(fontSize: 25, color: Colors.blueGrey),
+        body:SafeArea(
+          child: StreamBuilder(
+                stream: Api.getYourContact(),
+                builder: (context, snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.waiting:
+                    case ConnectionState.none:
+                    // return const Center(
+                    //   child: CircularProgressIndicator(),
+                    // );
+                    case ConnectionState.active:
+                    case ConnectionState.done:
+                      final data = snapshot.data?.docs;
+                      list = data?.map((e) => MeetUser.fromJson(e.data())).toList() ??
+                          [];
+                
+                      print("#length :  ${list.length}");
+                
+                      return Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 18.0),
+                        child: list.isEmpty
+                            ? Center(
+                          child: Padding(
+                            padding:  EdgeInsets.symmetric(vertical: mq.height*0.35),
+                            child: Text(
+                              "No Contacts",
+                              style: TextStyle(fontSize: 25, color: Colors.blueGrey),
+                            ),
                           ),
+                        )
+                            : ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemCount: list.length,
+                          physics: BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                
+                            return ContactCard(user: list[index],) ;
+                
+                          },
                         ),
-                      )
-                          : ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: list.length,
-                        physics: BouncingScrollPhysics(),
-                        itemBuilder: (context, index) {
-
-                          return ContactCard(user: list[index],) ;
-
-                        },
-                      ),
-                    );
-                }
-              },
-            ),
-
-
-          ],
+                      );
+                  }
+                },
+              ),
         ),
+      
       ),
     );
   }

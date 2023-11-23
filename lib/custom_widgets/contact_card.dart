@@ -37,15 +37,9 @@ class _UserCardState extends State<ContactCard> {
           ),
           child: IconButton(
             onPressed: () async{
-
-                await Api.addSelectionUser(widget.user).then((value) async {
                   await  Api.fetchContactDetails(widget.user.name).then((value) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Contact Delete")));
                   });
-                }) ;
-
-
-
             },
             icon: Icon(Icons.delete ,color: Colors.black,),
           ),

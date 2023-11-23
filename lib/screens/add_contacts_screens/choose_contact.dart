@@ -126,9 +126,7 @@ class _AllUsersState extends State<AllUsers> {
                 .map((entry) => list[int.parse(entry.key.split('_').last)])
                 .toList();
             await Api.addContacts(selectedUsers).then((value)async{
-              await Api.fetchSelectionContactsByAttribute(selectedUsers).then((value) {
                 Navigator.pop(context);
-              });
             });
 
           },

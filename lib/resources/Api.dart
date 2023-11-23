@@ -8,7 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:zego_uikit_prebuilt_video_conference/zego_uikit_prebuilt_video_conference.dart';
 import 'package:zoom_clone/resources/models/meeting.dart';
 import '../effects/transition5.dart';
 import '../screens/login_screen.dart';
@@ -484,7 +483,8 @@ class Api {
   static Stream<QuerySnapshot<Map<String, dynamic>>> getAllUsers() {
 
     return firestore
-        .collection('users/${curUser?.id}/selection_users')
+        .collection('users')
+        .where('id', isNotEqualTo: curUser?.id)
         .snapshots();
   }
 
@@ -528,42 +528,6 @@ class Api {
     return await batch.commit();
   }
 
-  //copy all users  for selecting purpose when new user created
-
-  static void copyUsers() async {
-    final usersSnapshot = await FirebaseFirestore.instance.collection('users').get();
-
-    final List<Map<String, dynamic>> usersData = usersSnapshot.docs
-        .map((doc) => doc.data() as Map<String, dynamic>)
-        .toList();
-
-    usersData.forEach((userData) {
-      if (userData['id'] != curUser?.id) {
-        FirebaseFirestore.instance.collection('users/${curUser?.id}/selection_users').add(userData);
-      }
-    });
-  }
-
-  // fetch selcteion contact details
-  static Future<String?> fetchSelectionContactsByAttribute(List<MeetUser> selectedUsers) async {
-
-    for (var user in selectedUsers) {
-
-      final QuerySnapshot querySnapshot = await firestore.collection('users/${curUser?.id}/selection_users')
-          .where("name", isEqualTo: user.name)
-          .get();
-
-      if (querySnapshot.docs.isNotEmpty) {
-        print("finding done") ;
-        deleteSelectionContanct(querySnapshot.docs.first.id.toString());
-        return querySnapshot.docs.first.id.toString() ;
-      } else {
-        return null;
-      }
-    }
-    return null;
-
-  }
 
 
 
@@ -584,19 +548,7 @@ class Api {
 
   }
 
-  // when selection done delete users
-  static Future<void> deleteSelectionContanct(String id) async {
 
-    try {
-      await FirebaseFirestore.instance
-          .collection("users/${curUser!.id}/selection_users")
-          .doc(id)
-          .delete();
-      print("deletion done") ;
-    } catch (e) {
-      print("Error delete selection contact: $e");
-    }
-  }
 
   // when delete contact
 
@@ -613,27 +565,6 @@ class Api {
       print("Error delete selection contact: $e");
     }
   }
-
-
-  // adding selection user when deleted from contacts;
-
-  // when selection done delete users
-  static Future<void> addSelectionUser(MeetUser user) async {
-
-    try {
-      await FirebaseFirestore.instance
-          .collection("users/${curUser!.id}/selection_users")
-          .add(user.toJson());
-      print("addded") ;
-    } catch (e) {
-      print("Error add selection contact: $e");
-    }
-  }
-
-
-
-
-
 
 
 }
