@@ -26,6 +26,7 @@ class _UserCardState extends State<UserCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.grey.shade100,
       child: ListTile(
         leading: Checkbox(
           activeColor: AppColors.theme['primaryColor'],

@@ -17,6 +17,9 @@ class AllUsers extends StatefulWidget {
 class _AllUsersState extends State<AllUsers> {
   List<MeetUser> list = [];
   Map<String, bool> userCheckStates = {};
+  List<MeetUser> result = [] ;
+
+  bool isSearching = false ;
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +48,67 @@ class _AllUsersState extends State<AllUsers> {
             ),
           ),
         ),
-        body: Column(
+        body: ListView(
           children: [
-            SizedBox(height: 10,),
+            Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 18.0,vertical: 10),
+              child: GestureDetector(
+                onTap: (){
+                  setState(() {
+                    isSearching = !isSearching ;
+                  });
+                },
+                child: Container(
+                  height: 50,
+                  child: Row(
+                    children: [
+                      SizedBox(width:mq.width*0.065,),
+                      Icon(Icons.search),
+                      SizedBox(width:mq.width*0.065,),
+                      Container(
+                        width: 220,
+                        child: TextFormField(
+                          onChanged: (val){
+                            result.clear();
+                            for (var i in list){
+                              if(i.name.toLowerCase().contains(val.toLowerCase())||i.email.toLowerCase().contains(val.toLowerCase())){
+                                result.add(i) ;
+                              }
+                              setState(() {
+                                ;
+                              });
+                            }
+
+
+                          },
+                          enabled: isSearching ? true :false,
+                          decoration: InputDecoration(
+                            hintText: "Search Contacts",
+                            enabledBorder:InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                          ),
+                          autofocus: true,
+                          autocorrect: true,
+                        ),
+                      ),
+                      if(isSearching)
+                        IconButton(onPressed: (){
+                          setState(() {
+                            isSearching  =!isSearching ;
+                          });
+                        }, icon: Icon(Icons.cancel_outlined))
+
+                    ],
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.grey.shade200,
+                  ),
+                ),
+              ),
+            ),
+
+
             StreamBuilder(
               stream: Api.getAllUsers(),
               builder: (context, snapshot) {
@@ -80,10 +141,10 @@ class _AllUsersState extends State<AllUsers> {
                           : ListView.builder(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
-                        itemCount: list.length,
+                        itemCount: isSearching ? result.length : list.length,
                         physics: BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
-                          final user = list[index];
+                          final user = isSearching ? result[index] : list[index];
                           final isChecked = userCheckStates['isChecked_$index'] ?? false;
 
                           return UserCard(
