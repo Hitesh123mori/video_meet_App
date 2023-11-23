@@ -202,7 +202,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       RegExp(r".{4}"),
                                           (match) => "${match.group(0)} ",
                                     )}
-
+   Meeting Password: *Test@123* ,
+                                   
   Your participation is greatly appreciated, and I look forward to fruitful discussions during the meeting.
 
   Best regards,

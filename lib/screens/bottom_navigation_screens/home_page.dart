@@ -46,9 +46,9 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              SizedBox(height: mq.height*0.14,),
-              Image.asset("assets/images/no_meet.png"),
-              Text("No Meetings",style: TextStyle(color:Colors.blueGrey,fontSize: 32),),
+              SizedBox(height: mq.height*0.3,),
+              // Image.asset("assets/images/no_meet.png"),
+              Text("No Scheduled Meetings",style: TextStyle(color:Colors.blueGrey,fontSize:26),),
             ],
           ),
         )

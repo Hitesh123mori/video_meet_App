@@ -37,7 +37,7 @@ class _DetailScreenState extends State<DetailScreen> {
             centerTitle: true,
             title: Text(
               "Fill Up Details",
-              style: TextStyle(color: AppColors.theme['secondaryTextColor']),
+              style: TextStyle(color: AppColors.theme['secondaryTextColor'],fontWeight: FontWeight.bold),
             ),
           ),
           body: SingleChildScrollView(
