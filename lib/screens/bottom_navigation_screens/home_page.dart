@@ -6,6 +6,7 @@ import '../../custom_widgets/home_page_container.dart';
 import '../home_page_screens/join_meeting_screen.dart';
 import '../home_page_screens/new_meeting.dart';
 import '../home_page_screens/new_meeting_details.dart';
+import '../home_page_screens/schedule_meeting.dart';
 import '../splash_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -39,7 +40,9 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(context, SizeTransition5(JoinMeeting())) ;
                     },),
                     SizedBox(width:mq.width*0.05,),
-                    OptionContainer(icon: Icon(Icons.schedule,color: Colors.white,size: 28,), text: 'Schedule', color:AppColors.theme['primaryColor'], onTap: () {  },),
+                    OptionContainer(icon: Icon(Icons.schedule,color: Colors.white,size: 28,), text: 'Schedule', color:AppColors.theme['primaryColor'], onTap: () {
+                      Navigator.push(context, SizeTransition5(ScheduledMeeting())) ;
+                    },),
                     SizedBox(width: mq.width*0.05,),
                     OptionContainer(icon: Icon(Icons.ios_share_sharp,color: Colors.white,size: 28), text: 'Share Screen', color: AppColors.theme['primaryColor'], onTap: () {  },),
                     SizedBox(width: mq.width*0.05,),

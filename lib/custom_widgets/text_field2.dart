@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+
+
+class textField extends StatelessWidget {
+  final String hintText;
+  final TextEditingController? controller;
+  final bool isNumber;
+  final FormFieldValidator<String>? validator;
+  final String? intilatext ;
+  final void Function(String?)? onSaved;
+
+  const textField({
+    Key? key,
+    required this.hintText,
+    this.controller,
+    required this.isNumber,
+    this.validator, this.intilatext, this.onSaved,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final mq = MediaQuery.of(context).size;
+    return Container(
+      color: Colors.white,
+      height: 60,
+      child: Center(
+        child: TextFormField(
+          onSaved: onSaved,
+          initialValue: intilatext,
+          keyboardType: isNumber ? TextInputType.number : TextInputType.text,
+          controller: controller,
+          textAlign: TextAlign.center,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+            ),
+            hintText: hintText,
+            hintStyle: TextStyle(color: Colors.grey.shade600),
+          ),
+          validator: validator, // Use the validator
+        ),
+      ),
+    );
+  }
+}
+

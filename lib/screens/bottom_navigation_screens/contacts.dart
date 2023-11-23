@@ -14,13 +14,13 @@ class Contacts extends StatefulWidget {
   @override
   State<Contacts> createState() => _ContactsState();
 }
+List<MeetUser> list = [] ;
+List<MeetUser> result = [] ;
 
+bool isSearching = false ;
 class _ContactsState extends State<Contacts> {
 
-  List<MeetUser> list = [] ;
-  List<MeetUser> result = [] ;
 
-  bool isSearching = false ;
 
 
   @override

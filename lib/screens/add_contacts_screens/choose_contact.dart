@@ -138,25 +138,22 @@ class _AllUsersState extends State<AllUsers> {
                           ),
                         ),
                       )
-                          : ListView.builder(
+                          :  ListView.builder(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
-                        itemCount: isSearching ? result.length : list.length,
+                        itemCount: isSearching ? result.length:list.length,
                         physics: BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
-                          final user = isSearching ? result[index] : list[index];
-                          final isChecked = userCheckStates['isChecked_$index'] ?? false;
-
                           return UserCard(
-                            user: user,
-                            isChecked: isChecked,
+                            user: isSearching ? result[index]: list[index],
+                            isChecked: userCheckStates['isChecked_$index'] ?? false,
                             onChanged: (bool value) {
                               setState(() {
                                 userCheckStates['isChecked_$index'] = value;
-
                               });
                             },
-                          );
+                          ) ;
+
                         },
                       ),
                     );

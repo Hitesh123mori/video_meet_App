@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:zego_uikit_prebuilt_video_conference/zego_uikit_prebuilt_video_conference.dart';
 import 'package:zoom_clone/resources/models/meeting.dart';
 import '../effects/transition5.dart';
 import '../screens/login_screen.dart';
@@ -565,6 +566,73 @@ class Api {
       print("Error delete selection contact: $e");
     }
   }
+
+
+  // adding upcoming meetings
+
+
+  static Future<DocumentReference<Map<String, dynamic>>> createUpcomingMeeting(String meetingName,String password, List<MeetUser> participants ,String Meetingtime) async {
+
+    final newMeeting = Meeting(
+      name: meetingName,
+      hostName: Api.curUser!.name,
+      hostEmail: Api.curUser!.email,
+      date: Meetingtime,
+      meetingId: Api.curUser!.meetingId,
+      password: password,
+    );
+
+
+    await addParicipants(participants) ;
+
+      return await FirebaseFirestore.instance
+          .collection('users/${curUser!.id}/your_schedule/${generateUniqueId(Api.curUser!.name)}/meeting_info')
+          .add(newMeeting.toJson());
+
+  }
+
+
+  // storing participants
+
+
+  static Future<void> addParicipants(List<MeetUser> selectedUsers) async {
+    // Create a WriteBatch
+
+
+    WriteBatch batch = firestore.batch();
+
+    for (var user in selectedUsers) {
+
+      final meetUser = MeetUser(
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        image: user.image,
+        createdAt: user.createdAt,
+        method: user.method,
+        meetingId: user.meetingId,
+        isAudioConnect: user.isAudioConnect,
+        isSpeakerOn: user.isSpeakerOn,
+        isVideoOn: user.isVideoOn,
+      );
+
+
+
+      // Add the user to the batch
+      batch.set(
+        firestore.collection('users/${curUser!.id}/your_schedule/${generateUniqueId(Api.curUser!.name)}/participants').doc(user.id),
+        meetUser.toJson(),
+      );
+
+
+
+
+    }
+
+    // Commit the batch
+    return await batch.commit();
+  }
+
 
 
 }
