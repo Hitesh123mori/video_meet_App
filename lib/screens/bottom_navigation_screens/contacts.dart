@@ -61,7 +61,7 @@ class _ContactsState extends State<Contacts> {
                           padding:  EdgeInsets.symmetric(vertical: mq.height*0.35),
                           child: Text(
                             "No Contacts",
-                            style: TextStyle(fontSize: 25, color: Colors.grey),
+                            style: TextStyle(fontSize: 25, color: Colors.blueGrey),
                           ),
                         ),
                       )

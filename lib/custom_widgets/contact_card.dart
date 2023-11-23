@@ -21,7 +21,11 @@ class _UserCardState extends State<ContactCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.grey.shade200,
       child: ListTile(
+        leading: CircleAvatar(
+          backgroundImage:NetworkImage(widget.user.image),
+        ),
         title: Text(widget.user.name),
         subtitle: Text(widget.user.email),
         trailing: Container(
@@ -29,7 +33,7 @@ class _UserCardState extends State<ContactCard> {
           width: 40,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Colors.red.shade500
+              color: Colors.red
           ),
           child: IconButton(
             onPressed: () async{
@@ -43,7 +47,7 @@ class _UserCardState extends State<ContactCard> {
 
 
             },
-            icon: Icon(Icons.delete ),
+            icon: Icon(Icons.delete ,color: Colors.black,),
           ),
         ),
       ),
