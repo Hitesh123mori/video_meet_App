@@ -634,5 +634,16 @@ class Api {
   }
 
 
+  // acess meeting info
+
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> fetchUpcomingMeeting() {
+
+    return firestore
+        .collection('users/${curUser!.id}/your_schedule/${generateUniqueId(Api.curUser!.name)}/meeting_info')
+        .snapshots();
+  }
+
+
 
 }
