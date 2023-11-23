@@ -28,21 +28,13 @@ class _UserCardState extends State<ContactCard> {
         ),
         title: Text(widget.user.name),
         subtitle: Text(widget.user.email),
-        trailing: Container(
-          height: 40,
-          width: 40,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.red
-          ),
-          child: IconButton(
-            onPressed: () async{
-                  await  Api.fetchContactDetails(widget.user.name).then((value) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Contact Delete")));
-                  });
-            },
-            icon: Icon(Icons.delete ,color: Colors.black,),
-          ),
+        trailing: TextButton(
+          onPressed: () async{
+                await  Api.fetchContactDetails(widget.user.name).then((value) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Contact Delete")));
+                });
+          },
+          child :Text("Delete",style: TextStyle(color: Colors.red),),
         ),
       ),
     );
