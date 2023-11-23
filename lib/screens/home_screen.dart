@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
           centerTitle: true,
           title: Text(
             "MeetWith",
-            style: TextStyle(color: AppColors.theme['primaryTextColor']),
+            style: TextStyle(fontWeight : FontWeight.bold , color: AppColors.theme['primaryTextColor'],),
           ),
         ),
         body: _buildBody(),

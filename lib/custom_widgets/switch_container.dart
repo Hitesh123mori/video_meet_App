@@ -41,7 +41,7 @@ class _SwitchContainerState extends State<SwitchContainer> {
                 // },
                 onChanged: widget.onChanged,
                 activeTrackColor: Colors.blue.shade700,
-                activeColor: AppColors.theme['primaryColor'],
+                activeColor: Colors.blue.shade900,
               ),
 
             ],

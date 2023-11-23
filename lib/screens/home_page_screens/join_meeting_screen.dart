@@ -90,7 +90,7 @@ class _JoinMeetingState extends State<JoinMeeting> {
             centerTitle: true,
             title: Text(
               "Join Meeting",
-              style: TextStyle(color: AppColors.theme['secondaryTextColor']),
+              style: TextStyle(fontWeight : FontWeight.bold ,color: AppColors.theme['secondaryTextColor']),
             ),
           ),
           body: Form(

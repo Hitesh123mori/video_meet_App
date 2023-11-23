@@ -40,6 +40,7 @@ dependencies:
   zego_uikit_prebuilt_video_conference: ^2.6.3
   crypto: ^3.0.3
   url_launcher: ^6.2.1
+  intl: ^0.18.1
 
 
 

@@ -77,7 +77,7 @@ class _MeetingDetailsState extends State<MeetingDetails> {
         centerTitle: true,
         title: Text(
           "New Meeting",
-          style: TextStyle(color: AppColors.theme['secondaryTextColor']),
+          style: TextStyle(fontWeight : FontWeight.bold ,color: AppColors.theme['secondaryTextColor']),
         ),
       ),
       body: Form(
