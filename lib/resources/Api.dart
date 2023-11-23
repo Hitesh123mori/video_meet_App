@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:zego_uikit_prebuilt_video_conference/zego_uikit_prebuilt_video_conference.dart';
 import 'package:zoom_clone/resources/models/meeting.dart';
 import '../effects/transition5.dart';
 import '../screens/login_screen.dart';
@@ -279,6 +280,9 @@ class Api {
   }
 
 
+
+
+
   // fetch data for finding host all info
   static Future<MeetUser?> getJoiningData(String documentId) async {
     DocumentSnapshot doc = await firestore.collection("users").doc(documentId).get();
@@ -305,6 +309,8 @@ class Api {
       return null;
     }
   }
+
+
 
 
 
@@ -471,6 +477,161 @@ class Api {
         .collection('users/${curUser!.id}/Joined_Meeting')
         .snapshots();
   }
+
+
+
+  // get users
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllUsers() {
+
+    return firestore
+        .collection('users/${curUser?.id}/selection_users')
+        .snapshots();
+  }
+
+
+  // get user contact
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getYourContact() {
+
+    return firestore
+        .collection('users/${curUser!.id}/your_contacts')
+        .snapshots();
+  }
+
+  // your contacts
+
+  static Future<void> addContacts(List<MeetUser> selectedUsers) async {
+    // Create a WriteBatch
+    WriteBatch batch = firestore.batch();
+
+    for (var user in selectedUsers) {
+      final meetUser = MeetUser(
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        image: user.image,
+        createdAt: user.createdAt,
+        method: user.method,
+        meetingId: user.meetingId,
+        isAudioConnect: user.isAudioConnect,
+        isSpeakerOn: user.isSpeakerOn,
+        isVideoOn: user.isVideoOn,
+      );
+
+      // Add the user to the batch
+      batch.set(
+        firestore.collection('users/${curUser!.id}/your_contacts').doc(user.id),
+        meetUser.toJson(),
+      );
+    }
+
+    // Commit the batch
+    return await batch.commit();
+  }
+
+  //copy all users  for selecting purpose when new user created
+
+  static void copyUsers() async {
+    final usersSnapshot = await FirebaseFirestore.instance.collection('users').get();
+
+    final List<Map<String, dynamic>> usersData = usersSnapshot.docs
+        .map((doc) => doc.data() as Map<String, dynamic>)
+        .toList();
+
+    usersData.forEach((userData) {
+      if (userData['id'] != curUser?.id) {
+        FirebaseFirestore.instance.collection('users/${curUser?.id}/selection_users').add(userData);
+      }
+    });
+  }
+
+  // fetch selcteion contact details
+  static Future<String?> fetchSelectionContactsByAttribute(List<MeetUser> selectedUsers) async {
+
+    for (var user in selectedUsers) {
+
+      final QuerySnapshot querySnapshot = await firestore.collection('users/${curUser?.id}/selection_users')
+          .where("name", isEqualTo: user.name)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        print("finding done") ;
+        deleteSelectionContanct(querySnapshot.docs.first.id.toString());
+        return querySnapshot.docs.first.id.toString() ;
+      } else {
+        return null;
+      }
+    }
+    return null;
+
+  }
+
+
+
+  // fetch  contact details
+  static Future<String?> fetchContactDetails(String name) async {
+
+      final QuerySnapshot querySnapshot = await firestore.collection('users/${curUser?.id}/your_contacts')
+          .where("name", isEqualTo: name)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        print("finding done") ;
+        deleteContact(querySnapshot.docs.first.id.toString());
+        return querySnapshot.docs.first.id.toString() ;
+      } else {
+        return null;
+      }
+
+  }
+
+  // when selection done delete users
+  static Future<void> deleteSelectionContanct(String id) async {
+
+    try {
+      await FirebaseFirestore.instance
+          .collection("users/${curUser!.id}/selection_users")
+          .doc(id)
+          .delete();
+      print("deletion done") ;
+    } catch (e) {
+      print("Error delete selection contact: $e");
+    }
+  }
+
+  // when delete contact
+
+  // when selection done delete users
+  static Future<void> deleteContact(String id) async {
+
+    try {
+      await FirebaseFirestore.instance
+          .collection("users/${curUser!.id}/your_contacts")
+          .doc(id)
+          .delete();
+      print("deletion done") ;
+    } catch (e) {
+      print("Error delete selection contact: $e");
+    }
+  }
+
+
+  // adding selection user when deleted from contacts;
+
+  // when selection done delete users
+  static Future<void> addSelectionUser(MeetUser user) async {
+
+    try {
+      await FirebaseFirestore.instance
+          .collection("users/${curUser!.id}/selection_users")
+          .add(user.toJson());
+      print("addded") ;
+    } catch (e) {
+      print("Error add selection contact: $e");
+    }
+  }
+
+
+
 
 
 

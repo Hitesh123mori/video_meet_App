@@ -19,7 +19,16 @@ class GreetScreen extends StatefulWidget {
 }
 
 class _GreetScreenState extends State<GreetScreen> {
+
+
   @override
+  void initState()  {
+    super.initState();
+    Api.getSelfData(Api.user.uid).then((value) {
+      Api.copyUsers();
+    });
+
+  }
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size ;
     return MaterialApp(
