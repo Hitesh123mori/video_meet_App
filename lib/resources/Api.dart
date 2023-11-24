@@ -23,6 +23,8 @@ class Api {
   // to return current user
   static User get user => auth.currentUser!;
 
+ static String id = "${Api.curUser!.name}_${Api.curUser!.id}" ;
+
   static MeetUser? curUser ;
 
 
@@ -586,7 +588,7 @@ class Api {
     await addParicipants(participants) ;
 
       return await FirebaseFirestore.instance
-          .collection('users/${curUser!.id}/your_schedule/${generateUniqueId(Api.curUser!.name)}/meeting_info')
+          .collection('users/${curUser!.id}/your_schedule/${generateUniqueId(id)}/meeting_info')
           .add(newMeeting.toJson());
 
   }
@@ -620,7 +622,7 @@ class Api {
 
       // Add the user to the batch
       batch.set(
-        firestore.collection('users/${curUser!.id}/your_schedule/${generateUniqueId(Api.curUser!.name)}/participants').doc(user.id),
+        firestore.collection('users/${curUser!.id}/your_schedule/${generateUniqueId(id)}/participants').doc(user.id),
         meetUser.toJson(),
       );
 
@@ -640,7 +642,7 @@ class Api {
   static Stream<QuerySnapshot<Map<String, dynamic>>> fetchUpcomingMeeting() {
 
     return firestore
-        .collection('users/${curUser!.id}/your_schedule/${generateUniqueId(Api.curUser!.name)}/meeting_info')
+        .collection('users/${curUser!.id}/your_schedule/${generateUniqueId(id)}/meeting_info')
         .snapshots();
   }
 
