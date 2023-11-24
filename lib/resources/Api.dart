@@ -29,6 +29,9 @@ class Api {
 
 
 
+
+
+
   // for accessing firebase storage
   static FirebaseStorage storage = FirebaseStorage.instance;
 
@@ -173,6 +176,7 @@ class Api {
       isAudioConnect: true,
       isSpeakerOn: true,
       isVideoOn: true,
+
     );
     return await firestore
         .collection('users')

@@ -59,10 +59,11 @@ class _SignUpOptionState extends State<SignUpOption> {
           context,
           emailController.text,
           passController.text,
-        );
+        ) ;
         print("hello done register") ;
 
-        Navigator.pushReplacement(context,SizeTransition4(DetailScreen()));
+          Navigator.pushReplacement(context,SizeTransition4(DetailScreen()));
+
       } catch (error) {
       }
 

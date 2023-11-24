@@ -162,7 +162,7 @@ class _JoinMeetingState extends State<JoinMeeting> {
                             if (_formKey.currentState!.validate()) {
 
                               await Api.joinMeeting(await Api.fetchMeetingDataJoinedByAttribute(idController.text,context)?? MeetUser(image: "", name: "", createdAt: "", id:
-                              "", email: "", method: "", meetingId: "", isAudioConnect: false, isSpeakerOn: false, isVideoOn:false),passController.text,context).then((value) {
+                              "", email: "", method: "", meetingId: "", isAudioConnect: false, isSpeakerOn: false, isVideoOn:false,),passController.text,context).then((value) {
 
 
                                 Navigator.push(

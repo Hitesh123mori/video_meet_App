@@ -27,6 +27,13 @@ class _HomePageState extends State<HomePage> {
  List<Meeting> list = [] ;
 
 
+  @override
+  void initState() {
+    super.initState();
+    Api.getSelfData(Api.user.uid);
+  }
+
+
 
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
@@ -106,6 +113,11 @@ class _HomePageState extends State<HomePage> {
                 //   style: TextStyle(fontSize: 18),
                 // ),
 
+                Divider(height: 0.5,),
+                Padding(
+                  padding: EdgeInsets.only(right: mq.width*0.4,top: mq.height*0.03),
+                  child: Text("     Your Upcoming Meetings",style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold,fontSize: 17),),
+                ),
                 StreamBuilder(
                     stream: Api.fetchUpcomingMeeting(),
                     builder: (context, snapshot) {
@@ -128,11 +140,12 @@ class _HomePageState extends State<HomePage> {
                             padding: EdgeInsets.symmetric(horizontal: 18.0),
                             child: list.isEmpty
                                 ? Center(
-
-                                    child: Text(
-                                      "No meetings",
-                                      style: TextStyle(
-                                          fontSize: 25, color: Colors.grey),
+                                    child:Padding(
+                                      padding:  EdgeInsets.symmetric(vertical: mq.height*0.3),
+                                      child: Text(
+                                                                        "No Scheduled Meetings",
+                                                                        style: TextStyle(color: Colors.blueGrey, fontSize: 26),
+                                                                      ),
                                     ),
                                   )
                                 : ListView.builder(
@@ -149,14 +162,6 @@ class _HomePageState extends State<HomePage> {
                           );
                       }
                     }),
-
-                SizedBox(
-                  height: mq.height * 0.3,
-                ),
-                Text(
-                  "No Scheduled Meetings",
-                  style: TextStyle(color: Colors.blueGrey, fontSize: 26),
-                ),
               ],
             ),
           )),

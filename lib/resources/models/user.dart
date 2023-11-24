@@ -10,6 +10,7 @@ class MeetUser {
     required this.isAudioConnect,
     required this.isSpeakerOn,
     required this.isVideoOn,
+
   });
   late String image;
   late String name;
@@ -23,6 +24,7 @@ class MeetUser {
   late bool isVideoOn ;
 
 
+
   MeetUser.fromJson(Map<String, dynamic> json) {
     image = json['image'] ?? '';
     name = json['name'] ?? '';
@@ -34,6 +36,8 @@ class MeetUser {
     isAudioConnect =  json['isAudioConnect'] ;
     isSpeakerOn =  json['isSpeakerOn'] ;
     isVideoOn =  json['isVideoOn'] ;
+
+
   }
 
   Map<String, dynamic> toJson() {
@@ -48,6 +52,7 @@ class MeetUser {
     data['isAudioConnect'] = isAudioConnect;
     data['isSpeakerOn'] = isSpeakerOn;
     data['isVideoOn'] = isVideoOn;
+
     return data;
   }
 }

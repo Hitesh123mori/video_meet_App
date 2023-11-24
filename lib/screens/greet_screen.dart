@@ -24,7 +24,10 @@ class _GreetScreenState extends State<GreetScreen> {
   @override
   void initState()  {
     super.initState();
-    Api.getSelfData(Api.user.uid) ;
+    Api.getSelfData(Api.user.uid);
+
+
+
   }
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size ;
