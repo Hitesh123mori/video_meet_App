@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../Pallate.dart';
+
 
 class Dialogs{
 
@@ -18,7 +20,7 @@ class Dialogs{
   static void showProgressBar(BuildContext context) {
     showDialog(
       context: context,
-      builder: (_) => const Center(child: CircularProgressIndicator(color: Colors.black,)),
+      builder: (_) =>  Center(child: CircularProgressIndicator(color: AppColors.theme['primaryColor'],)),
     );
   }
 

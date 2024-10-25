@@ -118,50 +118,50 @@ class _HomePageState extends State<HomePage> {
                   padding: EdgeInsets.only(right: mq.width*0.4,top: mq.height*0.03),
                   child: Text("     Your Upcoming Meetings",style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold,fontSize: 17),),
                 ),
-                StreamBuilder(
-                    stream: Api.fetchUpcomingMeeting(),
-                    builder: (context, snapshot) {
-                      switch (snapshot.connectionState) {
-                        case ConnectionState.waiting:
-                        case ConnectionState.none:
-                        // return const Center(
-                        //   child: CircularProgressIndicator(),
-                        // );
-                        case ConnectionState.active:
-                        case ConnectionState.done:
-                          final data = snapshot.data?.docs;
-                          list = data
-                                  ?.map((e) => Meeting.fromJson(e.data()))
-                                  .toList() ??
-                              [];
-                          print("#length :  ${list.length}");
-
-                          return Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 18.0),
-                            child: list.isEmpty
-                                ? Center(
-                                    child:Padding(
-                                      padding:  EdgeInsets.symmetric(vertical: mq.height*0.3),
-                                      child: Text(
-                                                                        "No Scheduled Meetings",
-                                                                        style: TextStyle(color: Colors.blueGrey, fontSize: 26),
-                                                                      ),
-                                    ),
-                                  )
-                                : ListView.builder(
-                                    scrollDirection: Axis.vertical,
-                                    shrinkWrap: true,
-                                    itemCount: list.length,
-                                    physics: BouncingScrollPhysics(),
-                                    itemBuilder: (context, index){
-
-                                      return UpcomingTimer(meeting: list[index],) ;
-
-                                    },
-                                  ),
-                          );
-                      }
-                    }),
+                // StreamBuilder(
+                //     stream: Api.fetchUpcomingMeeting(),
+                //     builder: (context, snapshot) {
+                //       switch (snapshot.connectionState) {
+                //         case ConnectionState.waiting:
+                //         case ConnectionState.none:
+                //         // return const Center(
+                //         //   child: CircularProgressIndicator(),
+                //         // );
+                //         case ConnectionState.active:
+                //         case ConnectionState.done:
+                //           final data = snapshot.data?.docs;
+                //           list = data
+                //                   ?.map((e) => Meeting.fromJson(e.data()))
+                //                   .toList() ??
+                //               [];
+                //           print("#length :  ${list.length}");
+                //
+                //           return Padding(
+                //             padding: EdgeInsets.symmetric(horizontal: 18.0),
+                //             child: list.isEmpty
+                //                 ? Center(
+                //                     child:Padding(
+                //                       padding:  EdgeInsets.symmetric(vertical: mq.height*0.3),
+                //                       child: Text(
+                //                                                         "No Scheduled Meetings",
+                //                                                         style: TextStyle(color: Colors.blueGrey, fontSize: 26),
+                //                                                       ),
+                //                     ),
+                //                   )
+                //                 : ListView.builder(
+                //                     scrollDirection: Axis.vertical,
+                //                     shrinkWrap: true,
+                //                     itemCount: list.length,
+                //                     physics: BouncingScrollPhysics(),
+                //                     itemBuilder: (context, index){
+                //
+                //                       return UpcomingTimer(meeting: list[index],) ;
+                //
+                //                     },
+                //                   ),
+                //           );
+                //       }
+                //     }),
               ],
             ),
           )),

@@ -32,9 +32,9 @@ class _SignUpOptionState extends State<SignUpOption> {
 
 // sign up with google
   void handlegooglebutton(){
-    // Dialogs.showProgressBar(context);
+    Dialogs.showProgressBar(context);
     Api.signInWithGoogle(context).then((user) async {
-      // Navigator.pop(context);
+      Navigator.pop(context);
       if (user != null) {
         bool userExists = await Api.userExistsGoogle();
         if (userExists) {
@@ -62,7 +62,7 @@ class _SignUpOptionState extends State<SignUpOption> {
         ) ;
         print("hello done register") ;
 
-          Navigator.pushReplacement(context,SizeTransition4(DetailScreen()));
+          Navigator.pushReplacement(context,SizeTransition4(GreetScreen()));
 
       } catch (error) {
       }
@@ -187,7 +187,7 @@ class _SignUpOptionState extends State<SignUpOption> {
                       );
                       signUp().then((value) {
                         print("user created succesufully");
-                        Navigator.pushReplacement(context,SizeTransition4(DetailScreen()));
+                        Navigator.pushReplacement(context,SizeTransition4(GreetScreen()));
                       });
                     }
 

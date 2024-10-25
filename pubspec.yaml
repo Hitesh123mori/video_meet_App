@@ -30,17 +30,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cloud_firestore: ^4.12.0
-  firebase_core: ^2.20.0
-  firebase_auth: ^4.12.0
-  google_sign_in: ^6.1.5
-  image_picker: ^1.0.4
-  firebase_storage: ^11.2.8
-  cached_network_image: ^3.3.0
-  zego_uikit_prebuilt_video_conference: ^2.6.3
-  crypto: ^3.0.3
-  url_launcher: ^6.2.1
-  intl: ^0.18.1
+  cloud_firestore:
+  firebase_core:
+  firebase_auth:
+  google_sign_in:
+  image_picker:
+  firebase_storage:
+  cached_network_image:
+  zego_uikit_prebuilt_video_conference:
+  crypto:
+  url_launcher:
+  intl:
 
 
 
@@ -51,7 +51,7 @@ dependencies:
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.13.1
+  flutter_launcher_icons: ^0.14.1
   flutter_test:
     sdk: flutter
 
