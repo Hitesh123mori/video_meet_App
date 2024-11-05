@@ -51,7 +51,7 @@ class _SettingState extends State<Setting> {
                       subtitle: Text(Api.curUser!.email),
                       leading: CircleAvatar(
                         radius: 40,
-                        backgroundImage: NetworkImage(Api.curUser!.image),
+                        backgroundImage: AssetImage("assets/images/student.png"),
                       ),
                       trailing: IconButton(
                         onPressed: () {

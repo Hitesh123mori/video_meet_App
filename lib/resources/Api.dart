@@ -20,10 +20,15 @@ class Api {
 
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  // to return current user
-  static User get user => auth.currentUser!;
+  static User get user {
+    if (auth.currentUser == null) {
+      throw Exception("User is not authenticated.");
+    }
+    return auth.currentUser!;
+  }
 
- static String id = "${Api.curUser!.name}_${Api.curUser!.id}" ;
+
+  static String id = "${Api.curUser!.name}_${Api.curUser!.id}" ;
 
   static MeetUser? curUser ;
 
@@ -37,17 +42,21 @@ class Api {
 
   // Sign out -----------
   static Future<void> signOut(BuildContext context) async {
-    await Api.auth.signOut().then((value) async {
-      await GoogleSignIn().signOut().then((value) {
-        Future.delayed(Duration.zero, () {
-          Navigator.pushReplacement(
-            context,
-            SizeTransition5(LoginScreen()),
-          );
-        });
-      });
-    });
+    try {
+      // Sign out from Firebase authentication
+      await Api.auth.signOut();
+      Navigator.pushReplacement(
+        context,
+        SizeTransition5(LoginScreen()),
+      );
+    } catch (e) {
+      print("Error signing out: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("An error occurred during sign out")),
+      );
+    }
   }
+
   // Auth Works here---------------------------------------------------------
 
   //1).GOOGLE SIGNIN
@@ -98,9 +107,10 @@ class Api {
     }
   }
 
-  // signup method-------------------------------------------------------------------------------------------------------------------------------------
   static Future<void> signUp(
       BuildContext context, String email, String password) async {
+    print("#COME");
+
     try {
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
         email: email,
@@ -108,24 +118,43 @@ class Api {
       );
 
       await createUserEmail(userCredential, email, password);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Successfully registered!'),
+          backgroundColor: Colors.green,
+        ),
+      );
 
     } on FirebaseAuthException catch (e) {
+      String errorMessage;
 
+      if (e.code == 'email-already-in-use') {
+        errorMessage = 'This email is already in use.';
+      } else if (e.code == 'invalid-email') {
+        errorMessage = 'Invalid email format.';
+      } else if (e.code == 'weak-password') {
+        errorMessage = 'Password is too weak.';
+      } else {
+        errorMessage = 'An unknown error occurred.';
+      }
 
-      // Show error message
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.message ?? 'An error occurred during registration.'),
-        backgroundColor: Colors.red,
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+          backgroundColor: Colors.red,
+        ),
+      );
+
     } catch (e) {
-
-
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('An error occurred. Please try again later.'),
-        backgroundColor: Colors.red,
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('An unexpected error occurred. Please try again later.'),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
+
 
   //   Check User (log in with email/password) Existance in Firebase
 
@@ -167,7 +196,7 @@ class Api {
 
     final meetUser = MeetUser(
       id: userCredential.user!.uid,
-      name: "",
+      name: email,
       email: email,
       image: "",
       createdAt: time,

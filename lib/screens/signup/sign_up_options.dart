@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:zoom_clone/custom_widgets/button.dart';
 import 'package:zoom_clone/screens/greet_screen.dart';
+import 'package:zoom_clone/screens/home_screen.dart';
 import 'package:zoom_clone/screens/login_screen.dart';
 import '../../Pallate.dart';
 import '../../custom_widgets/auth_options_containers.dart';
 import '../../custom_widgets/cutsom_helpers.dart';
 import '../../custom_widgets/text_field.dart';
+import '../../effects/Transition2.dart';
 import '../../effects/transition4.dart';
 import '../../effects/transition5.dart';
 import '../../resources/Api.dart';
@@ -38,9 +40,9 @@ class _SignUpOptionState extends State<SignUpOption> {
       if (user != null) {
         bool userExists = await Api.userExistsGoogle();
         if (userExists) {
-          Navigator.pushReplacement(context, SizeTransition4(GreetScreen()));
+          Navigator.pushReplacement(context, SizeTransition4(HomeScreen()));
         } else {
-          await Api.createUserGoogle().then((value) => Navigator.pushReplacement(context, SizeTransition4(GreetScreen()))) ;
+          await Api.createUserGoogle().then((value) => Navigator.pushReplacement(context, SizeTransition4(HomeScreen()))) ;
         }
       }
     });
@@ -50,29 +52,18 @@ class _SignUpOptionState extends State<SignUpOption> {
   //sign up with email-password :
 
   Future<void> signUp() async {
-      setState(() {
-        isRegistering = true;
-      });
-
       try {
         await Api.signUp(
           context,
           emailController.text,
           passController.text,
         ) ;
-        print("hello done register") ;
-
-          Navigator.pushReplacement(context,SizeTransition4(GreetScreen()));
+        print("#hello done register") ;
+        await Navigator.pushReplacement(context,SizeTransition2(HomeScreen()));
 
       } catch (error) {
       }
-
-      setState(() {
-        isRegistering = false;
-      });
   }
-
-
 
   @override
   void initState() {
@@ -116,8 +107,8 @@ class _SignUpOptionState extends State<SignUpOption> {
           },
         ),
         title: Text(
-          "sign Up",
-          style: TextStyle(color: AppColors.theme['secondaryTextColor']),
+          "Sign Up",
+          style: TextStyle(color: AppColors.theme['secondaryTextColor'],fontWeight: FontWeight.bold),
         ),
       ),
       body: Form(
@@ -176,25 +167,13 @@ class _SignUpOptionState extends State<SignUpOption> {
                 onPressed: isButtonEnabled2
                     ? () {
                   if (_formKey2.currentState!.validate()) {
-
-
-
-                    if (isRegistering) {
-                      return null;
-                    } else {
-                      Center(
-                        child: CircularProgressIndicator(backgroundColor: Colors.black,),
-                      );
                       signUp().then((value) {
                         print("user created succesufully");
                         Navigator.pushReplacement(context,SizeTransition4(GreetScreen()));
                       });
-                    }
-
-
                   }
                 }
-                    : () {}, // An empty callback if the button is disabled
+                    : () {},
                 text: 'Sign Up',
                 textColor: isButtonEnabled2
                     ? AppColors.theme['primaryTextColor']

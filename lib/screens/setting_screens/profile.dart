@@ -67,18 +67,12 @@ class _ProfileState extends State<Profile> {
               _image != null
                   ? ClipRRect(
                       borderRadius: BorderRadius.circular(90),
-                      child: Image.file(
-                        File(_image!),
-                        width: mq.width * 0.4,
-                        height: mq.width * 0.4,
-                        fit: BoxFit.cover,
-                      ),
+                      child: Image.asset(height: 200,width: 200,"assets/images/student.png")
                     )
-                  : CircleAvatar(
-                       radius: 75,
-                      backgroundColor: Colors.grey.shade200,
-                      backgroundImage: NetworkImage( Api.curUser!.image),
-                    ),
+                  :  ClipRRect(
+                  borderRadius: BorderRadius.circular(90),
+                  child: Image.asset(height: 150,width: 150,"assets/images/student.png")
+              ),
               Positioned(
                 top: mq.height * 0.13,
                 left: mq.width * 0.29,

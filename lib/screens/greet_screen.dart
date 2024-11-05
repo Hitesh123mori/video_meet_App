@@ -22,13 +22,15 @@ class _GreetScreenState extends State<GreetScreen> {
 
 
   @override
-  void initState()  {
+  void initState() {
     super.initState();
-    Api.getSelfData(Api.user.uid);
-
-
-
+    if (Api.user != null && Api.user.uid != null) {
+      Api.getSelfData(Api.user.uid);
+    } else {
+      print("User is not available or not logged in.");
+    }
   }
+
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size ;
     return MaterialApp(

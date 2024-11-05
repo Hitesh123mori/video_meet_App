@@ -58,10 +58,7 @@ class _SignInOptionState extends State<SignInOption> {
           eController.text,
           pController.text,
         );
-
-
         User? user = Api.auth.currentUser;
-
         if (user != null) {
           bool userExists = await Api.userExistsEmail(user.uid);
           if (userExists) {
@@ -122,8 +119,8 @@ class _SignInOptionState extends State<SignInOption> {
                 },
               ),
               title: Text(
-                "sign In",
-                style: TextStyle(color: AppColors.theme['secondaryTextColor']),
+                "Sign In",
+                style: TextStyle(color: AppColors.theme['secondaryTextColor'],fontWeight: FontWeight.bold),
               ),
             ),
             body: Form(

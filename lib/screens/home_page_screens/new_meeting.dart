@@ -20,7 +20,7 @@ class _NewMeetingState extends State<NewMeeting> {
         isSpeakerOn: Api.curUser!.isSpeakerOn,
         name: Api.curUser!.name,
         userId: Api.curUser!.id,
-        profileImage: Api.curUser!.image,
+        profileImage: "assets/images/student.png",
       );
 
   }
